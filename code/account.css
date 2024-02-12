@@ -1,59 +1,50 @@
-header{
-    background-color: #D4E0B1;
-}
-
-.item-img{
-    width: 100px;
-}
-
-.column p{
-    text-align: center;
-    display: inline;
-    margin: 10px;
-}
-
-#title{
-    text-align: center;
-    margin: auto;
-    font-size: x-large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-#navigation-bar{
+form{
+    background-color: #d4e0b1;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#form-body {
+    border-radius: 50px;
+    border: 1px solid #000;
+    background-color: #fff;
+    width: 40%;
+    justify-content: center;
+    margin: 10%;
+    padding: 5% 5%;
+}
+form {
+    font-weight: 750;
+    text-decoration-line: underline;
+    align-self: center;
     text-align: center;
-    padding: 10px;
 }
-
-#logo{
-    width: 50px;
-    height: 50px;
-    margin-right: 50px;
+form input[type=text] {
+      width:100%;
+      padding: 12px 15px;
+      border-radius: 10px;
+      border: 1px solid #000;
+      background-color: #f0f0f0;
+      margin-top: 40px;
+      justify-content: center;
+      align-items: start;
 }
-
-#profile-pic{
-    width: 50px;
-    height: 50px;
-    margin-left: 100px;
-}
-
-#profile-pic2{
-    width: 50px;
-    height: 50px;
-}
-
-#navigation-bar input{
+button[type=save] {
+    background-color: #d4e0b1;
+    align-self: center;
+    margin-top: 40px;
+    width: 200px;
+    max-width: 100%;
+    justify-content: center;
+    align-items: start;
+    padding: 15px 60px;
     border-radius: 10px;
-    width: 30%;
-    padding: 0px 0px 0px 10px;
-    margin-left: 100px;
 }
 
-#navigation-bar a{
-    margin: 10px 0px 0px 5%;
-    font-size: large;
+body{
+    background-color: #d4e0b1;
 }
 
-#profile-pic{
-    margin-left: 35%;
+button:hover{
+    background-color: #b5d364;
 }

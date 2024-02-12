@@ -1,5 +1,6 @@
 header{
     background-color: #D4E0B1;
+    border-bottom: 1px black solid;
 }
 
 footer{
@@ -53,8 +54,8 @@ footer{
 }
 
 #navigation-bar a{
-    margin: 10px 0px 0px 5%;
     font-size: large;
+    margin: 10px 0px 0px 5%;
 }
 
 #profile-pic{
