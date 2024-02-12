@@ -19,7 +19,7 @@ form {
     align-self: center;
     text-align: center;
 }
-input[type=text] {
+form input[type=text] {
       width:100%;
       padding: 12px 15px;
       border-radius: 10px;
