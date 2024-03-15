@@ -1,0 +1,42 @@
+/*@media screen and (min-width:576px){
+    .carousel-inner{
+        display: flex;
+    }
+    .carousel-item{
+        display: block;
+        margin-right: 0;
+        flex: 0 0 100%/3;
+    }
+}*/
+
+.scrolling-wrapper{
+    overflow-x: scroll;
+    white-space: nowrap;
+
+    .card {
+        display: inline-block;
+    }
+
+}
+
+nav, footer{
+    background-color: #D4E0B1;
+}
+
+.yellow-buttons{
+    background-color: #fff672;
+    border-color: transparent;
+    color: black;
+}
+
+.yellow-buttons:hover{
+    background-color: #fbec13;
+    border-color: transparent;
+    color: black;
+}
+
+footer{
+    border:solid;
+    border-color: transparent;
+    width: 100%;
+}
