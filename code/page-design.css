@@ -1,14 +1,34 @@
 .scrolling-wrapper{
     overflow-x: scroll;
     white-space: nowrap;
-
     .card {
         display: inline-block;
     }
 }
 
-nav, footer{
+nav{
     background-color: #D4E0B1;
+}
+
+body{
+    position: relative;
+    min-height: 100vh;
+}
+
+main h2{
+    margin-top: 5em;
+}
+
+#search-button{
+    background-color: rgb(190, 190, 190);
+    color: white;
+    border: transparent;
+}
+
+#search-button:hover{
+    background-color: grey;
+    color: white;
+    border: transparent;
 }
 
 .yellow-buttons{
@@ -23,8 +43,17 @@ nav, footer{
     color: black;
 }
 
-footer{
+#footer-home{
     border:solid;
     border-color: transparent;
+    background-color: #D4E0B1;
     width: 100%;
+}
+
+#footer-login{
+    width: 100%;
+    background-color: #D4E0B1;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
 }
