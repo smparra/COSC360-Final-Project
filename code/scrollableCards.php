@@ -2,9 +2,9 @@
     function scrollableCards($conn, $class, $category){
         echo '<div class="scrolling-wrapper mx-5">';
             if (is_null($category)){
-                $sql = "SELECT * FROM products WHERE class = '$class'";
+                $sql = "SELECT * FROM Products WHERE class = '$class'";
             } else{
-                $sql = "SELECT * FROM products WHERE category = '$category'";
+                $sql = "SELECT * FROM Products WHERE category = '$category'";
             }
             $result = mysqli_query($conn, $sql);
             while($row = $result->fetch_assoc()){ 
