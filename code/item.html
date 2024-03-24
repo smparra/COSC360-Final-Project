@@ -68,44 +68,104 @@
             </nav>
         </header>
         <main>
-            <h2 class="text-center my-4">Item Title</h2>
-            <div class="d-flex justify-content-center">
-                <img src="images/apple-watch.jpg" style="width: 18rem;" alt="">
-                <!--Vertical Divider-->
-                <div class="vr mx-3"></div>
-                <p>Best Price</p><br>
-            </div>
-
-            <div id="priceTracker" class="d-flex justify-content-center input-group">
-                <form class="my-4 w-25">
-                    <h5>Create a price tracker</h5>
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-text">$</span>
-                        <button class="btn btn-outline-secondary" type="button" id="button-track">Track</button>
+            <section>
+                <h2 class="text-center my-4">Item Title</h2>
+                <div id="item-details" class="d-flex justify-content-center">
+                    <img src="images/apple-watch.jpg" style="width: 35rem;" alt="">
+                </div>
+                <div id="item-details" class="d-flex justify-content-center">
+                    <div class="w-50 text-success">
+                        <h3>Best Price:</h3>
                     </div>
-                </form>
-            </div>
-
-            <div class="d-flex justify-content-center">
-                <h5>Price History</h5>
-            </div>
-
-            <div class="d-flex justify-content-center">
-                <h5>Product Details</h5>
-            </div>
-
-            <div class="d-flex justify-content-center flex-column">
-                <h5>Comments</h5>
-                <form>
-                    <label for="feedback">Leave feedback</label><br>
-                    <input type="text" id="feedback" name="feedback"><br>
-                  </form>
-            </div>
-            
+                </div>
+                <div id="price-tracker" class="my-4 d-flex justify-content-center">
+                    <div class="w-50">
+                        <form>
+                            <h5>Create a price tracker</h5>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="text" class="form-control">
+                                <button class="btn btn-outline-secondary" type="button" id="button-track">Track</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="my-4 d-flex justify-content-center">
+                    <div class="w-50">
+                        <h5>Price History</h5>
+                        <canvas id="priceChart" style="height:25em;width:100%;max-width:100em"></canvas>
+                    </div>
+                </div>
+                <div class="my-4 d-flex justify-content-center">
+                    <div class="w-50">
+                        <h5>Product Details</h5>
+                        <table class="table table-striped">
+                            <tbody>
+                              <tr>
+                                <th>Product group</th>
+                                <td>1</td>
+                              </tr>
+                              <tr>
+                                <th>Category</th>
+                                <td>2</td>
+                              </tr>
+                              <tr>
+                                <th>Manufacturer</th>
+                                <td>3</td>
+                              </tr>
+                              <tr>
+                                <th>Model</th>
+                                <td>4</td>
+                              </tr>
+                              <tr>
+                                <th>Locale</th>
+                                <td>5</td>
+                              </tr>
+                              <tr>
+                                <th>List price</th>
+                                <td>6</td>
+                              </tr>
+                              <tr>
+                                <th>EAN</th>
+                                <td>7</td>
+                              </tr>
+                              <tr>
+                                <th>UPC</th>
+                                <td>8</td>
+                              </tr>
+                              <tr>
+                                <th>SKU</th>
+                                <td>9</td>
+                              </tr>
+                              <tr>
+                                <th>Last update scan</th>
+                                <td>10</td>
+                              </tr>
+                              <tr>
+                                <th>Last tracked</th>
+                                <td>11</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+                <div class="my-4 d-flex justify-content-center">
+                    <div class="w-50">
+                        <h5><hr>Leave Feedback</h5>
+                        <form>
+                            <div class="mb-3">
+                                <input type="text" class="w-25 form-control" id="add-comment">
+                            </div>
+                            <button type="submit" id="button-comment" class="btn btn-primary">Comment</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
         </main>
         <footer>
-            <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+            <p id="footer-home" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
@@ -119,5 +179,9 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+
+        <!--Chart.js Script-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <script src="scripts/priceTracker.js"></script>
     </body>
 </html>
