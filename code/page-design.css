@@ -19,6 +19,10 @@ main h2{
     margin-top: 5em;
 }
 
+#feedback-form{
+    margin-top: 40em;
+}
+
 #search-button{
     background-color: rgb(190, 190, 190);
     color: white;
