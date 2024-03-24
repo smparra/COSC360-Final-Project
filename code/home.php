@@ -2,8 +2,8 @@
 
 <!-- Connect to server -->
 <?php
-include("configure.php");
-include("scrollableCards.php");
+include("php/configure.php");
+include("php/scrollableCards.php");
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
 if (mysqli_connect_errno()) {
@@ -29,7 +29,7 @@ if (mysqli_connect_errno()) {
             crossorigin="anonymous"
         />
         <!--Homepage Custom CSS-->
-        <link rel="stylesheet" href="page-design.css">
+        <link rel="stylesheet" href="css/page-design.css">
     </head>
 
     <body>
@@ -66,10 +66,10 @@ if (mysqli_connect_errno()) {
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="signup-page.html">Sign Up</a>
+                                <a class="nav-link" href="signup.php">Sign Up</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="login-page.html">Login</a>
+                                <a class="nav-link" href="login.html">Login</a>
                             </li>
                         </ul>
                     </div>

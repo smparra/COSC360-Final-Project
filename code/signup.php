@@ -18,7 +18,8 @@
     />
 
     <!--Custom CSS-->
-    <link rel="stylesheet" href="page-design.css">
+    <link rel="stylesheet" href="css/page-design.css">
+
   </head>
 
   <body>
@@ -26,7 +27,7 @@
       <!--Navbar Start-->
       <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
-              <a class="navbar-brand" href="home.html">
+              <a class="navbar-brand" href="home.php">
                   <img src="images/parrot.png" alt="Logo" height="30" width="30" class="d-inline-block align-text-top">
                   Parrot Pricing
               </a>
@@ -55,7 +56,7 @@
                           </ul>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="signup.html">Sign Up</a>
+                          <a class="nav-link" href="signup.php">Sign Up</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="login.html">Login</a>
@@ -68,18 +69,37 @@
     <main>
       <h2 class="text-center mb-4">Create a Parrot Pricing Account</h2>
       <div id="login" class="d-flex justify-content-center">
-        <form class="w-25">
+        <form method="post" action="php/registerUser.php" id="mainForm" class="w-25">
+          <?php 
+            if(isset($_GET['errorMessage'])) { 
+            $errorMessage = $_GET['errorMessage'];
+            echo "<div style='color: red;'>$errorMessage</div><br/>"; 
+            } 
+          ?>
+          <div class="mb-3">
+            <label for="inputFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" name="inputFirstName">
+            <div id="fname-error" style="color: red;"></div>
+          </div>
+          <div class="mb-3">
+            <label for="inputLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="inputLastName">
+            <div id="lname-error" style="color: red;"></div>
+          </div>
           <div class="mb-3">
             <label for="inputEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="inputEmail">
+            <input type="email" class="form-control" name="inputEmail">
+            <div id="email-error" style="color: red;"></div>
           </div>
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="inputPassword">
+            <input type="password" class="form-control" name="inputPassword" id="inputPassword">
+            <div id="pass-error" style="color: red;"></div>
           </div>
           <div class="mb-3">
             <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="confirmPassword">
+            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
+            <div id="confirmpass-error" style="color: red;"></div>
             <input type="checkbox" class="mx-1 my-3" onclick="showPassword()">Show Password
           </div>
           <button type="submit" id="signUpButton" class="btn btn-primary">Sign up</button>
@@ -90,6 +110,7 @@
     <footer>
       <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
     </footer>
+
     <!-- Bootstrap JavaScript Libraries -->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -108,5 +129,9 @@
 
     <!--Carousel Multiple Items-->
     <script src="scripts/togglePassword.js"></script>
+
+    <!--Validate User Entry-->
+    <script type="text/javascript" src="scripts/signup.js"></script>
+
   </body>
 </html>
