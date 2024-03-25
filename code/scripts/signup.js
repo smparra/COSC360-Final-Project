@@ -1,4 +1,4 @@
-// This script validates user entry, checking if all fields have been entered, then if the passwords match
+// This script validates user entry, checking if all fields have been entered, then checks if the passwords match
 // When form is submitted, registerUser.php is called to double check if user exists, then load user input to database
 
 window.onload = function() {

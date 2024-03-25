@@ -2,8 +2,6 @@
 <!-- TO DO: add image upload feature -->
 
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
   // connect to server
   include("configure.php");
   $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
@@ -38,7 +36,7 @@
       mysqli_stmt_bind_param($statement, "sssss", $firstName, $lastName, $email, $hashPass, $permissions);
       mysqli_stmt_execute($statement);
       mysqli_close($conn);
-      header("Location: ../home.php"); // TO DO: ADD STATE FUNCTIONALITY, REDIRECT TO LOGGED IN HOMEPAGE
+      header("Location: ../home-page.php"); // TO DO: ADD STATE FUNCTIONALITY, REDIRECT TO LOGGED IN HOMEPAGE
       exit();
     }
   }

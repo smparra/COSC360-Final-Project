@@ -66,10 +66,10 @@ if (mysqli_connect_errno()) {
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="signup.php">Sign Up</a>
+                                <a class="nav-link" href="signup-page.php">Sign Up</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="login.html">Login</a>
+                                <a class="nav-link" href="login-page.php">Login</a>
                             </li>
                         </ul>
                     </div>
