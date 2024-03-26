@@ -58,7 +58,7 @@ session_start();
       </nav>
     </header>
     <main>
-      <h2 class="text-center mb-4">Create a Parrot Pricing Account</h2>
+      <h2 class="text-center mb-4" id="create-account">Create a Parrot Pricing Account</h2>
       <div id="login" class="d-flex justify-content-center">
         <form method="post" action="php/registerUser.php" id="mainForm" class="w-25">
           <?php 
@@ -100,7 +100,7 @@ session_start();
       </div>
     </main>
     <footer>
-      <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+      <p id="footer-home" class="d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
     </footer>
 
     <!-- Bootstrap JavaScript Libraries -->

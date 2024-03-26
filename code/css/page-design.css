@@ -1,9 +1,9 @@
 .scrolling-wrapper{
     overflow-x: scroll;
     white-space: nowrap;
-    .card {
-        display: inline-block;
-    }
+}
+.card {
+    display: inline-block;
 }
 
 nav{
@@ -17,6 +17,10 @@ body{
 
 main h2{
     margin-top: 5em;
+}
+
+#create-account{
+    margin-top: 2em;
 }
 
 #search-button{
@@ -44,6 +48,7 @@ main h2{
 }
 
 #footer-home{
+    margin-top: 3em;
     border:solid;
     border-color: transparent;
     background-color: #D4E0B1;
