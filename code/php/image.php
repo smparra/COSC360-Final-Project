@@ -1,5 +1,5 @@
-<!--- fetches images to display products on home page --->
 <?php
+ //fetches images to display products on home page
 include("configure.php");
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 
@@ -11,11 +11,11 @@ $sql = "SELECT `Image` FROM `Products` WHERE `ProductID`='$id'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    header("Content-Type: image/jpeg"); 
-    echo $row['Image'];
+  $row = $result->fetch_assoc();
+  header("Content-Type: image/jpeg"); 
+  echo $row['Image'];
 } else {
-    echo "No image found.";
+  echo "No image found.";
 }
 $conn->close();
 ?>
