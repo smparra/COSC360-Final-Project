@@ -54,7 +54,7 @@
       </nav>
     </header>
     <main>
-      <h2 class="text-center mb-4">Login Page</h2>
+      <h2 class="text-center mb-4">Login</h2>
       <div id="login" class="d-flex justify-content-center">
         <form method="post" action="php/login.php" id="mainForm" class="w-25">
         <?php 

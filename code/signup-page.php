@@ -100,7 +100,7 @@ session_start();
       </div>
     </main>
     <footer>
-      <p id="footer-home" class="d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+    <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
     </footer>
 
     <!-- Bootstrap JavaScript Libraries -->

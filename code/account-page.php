@@ -69,23 +69,36 @@ session_start();
             </nav>
         </header>
         <main>
-            <h2 class="text-center mb-4">Account Settings</h2>
+            <h2 class="mb-3" style="margin-left: 45%; margin-top:2em; padding-bottom:0.5em;">Change Account Details</h2>
             <div id="settings" class="d-flex justify-content-center">
                 <div>
-                    <input type="radio" class="btn-check" name="options-base" id="option1" autocomplete="off" checked>
-                    <label class="btn" for="option1">Settings</label><br>
-                    <input type="radio" class="btn-check" name="options-base" id="option2" autocomplete="off" disabled>
-                    <label class="btn" for="option2">Admin</label>
+                    <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100" style="margin-bottom:1em"><br>
+                    <span>Claire Costello</span><br>
+                    <span style="padding-right:1em">claire.cost.31@gmail.com</span>
                 </div>
                 <!--Vertical Divider-->
                 <div class="vr mx-3"></div>
                 <form class="w-25">
+                <div class="mb-3 row">
+                    <div class="col">
+                      <label for="inputFirstName" class="form-label">New First Name</label>
+                      <input type="text" class="form-control" id="inputFirstname">
+                    </div>
+                    <div class="col">
+                        <label for="inputLastName" class="form-label">New Last Name</label>
+                        <input type="text" class="form-control" id="inputLastname">
+                    </div>
+                </div>
                 <div class="mb-3">
-                    <label for="inputEmail" class="form-label">Email address</label>
+                    <label for="inputEmail" class="form-label">New Email address</label>
                     <input type="email" class="form-control" id="inputEmail">
                 </div>
                 <div class="mb-3">
-                    <label for="inputPassword" class="form-label">Password</label>
+                    <label for="inputPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="inputPassword">
+                </div>
+                <div class="mb-3">
+                    <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="inputPassword">
                 </div>
                 <button type="submit" id="updateButton" class="btn btn-primary">Save Changes</button>
