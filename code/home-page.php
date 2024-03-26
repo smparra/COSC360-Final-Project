@@ -1,16 +1,13 @@
-<!doctype html>
-
-<!-- Connect to server -->
 <?php
+session_start();
 include("php/configure.php");
 include("php/scrollableCards.php");
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-
 if (mysqli_connect_errno()) {
   die("Connection failed: " . mysqli_connect_error());  
 }
 ?>
-
+<!doctype html>
 <html lang="en">
     <head>
         <title>Parrot Pricing</title>
@@ -53,24 +50,32 @@ if (mysqli_connect_errno()) {
                         </form>
                         <!--Navbar Items (Login, Signup, Regions)-->
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Region
-                                </a>
-                                <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Canada</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">United States</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Bermuda</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="signup-page.php">Sign Up</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="login-page.php">Login</a>
-                            </li>
+                            <?php 
+                                //if logged in, show dropdown, else login / sign up
+                                if (isset($_SESSION['user'])){
+                                    echo "
+                                    <li class='nav-item'>
+                                        <span class='nav-link'> Hello, ".$_SESSION['fname']."! </span>
+                                    </li>
+                                    <li class='nav-item dropdown'>
+                                        <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                            Your Account
+                                        </a>
+                                    <ul class='dropdown-menu dropdown-menu-end'>
+                                        <li><a class='dropdown-item' href='account-page.php'>Account Details</a></li>
+                                        <li><hr class='dropdown-divider'></li>
+                                        <li><a class='dropdown-item' href='php/logout.php'>Logout</a></li>
+                                    </ul>";
+                                } else{
+                                    echo 
+                                    "<li class='nav-item'>
+                                        <a class='nav-link' href='login-page.php'>Login</a>
+                                    </li>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='signup-page.php'>Sign Up</a>
+                                    </li>";
+                                }
+                            ?>
                         </ul>
                     </div>
                 </div>

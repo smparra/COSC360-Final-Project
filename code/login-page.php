@@ -42,23 +42,11 @@
                   </form>
                   <!--Navbar Items (Login, Signup, Regions)-->
                   <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Region
-                          </a>
-                          <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Canada</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">United States</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Bermuda</a></li>
-                          </ul>
+                      <li class="nav-item">
+                          <a class="nav-link" href="login-page.php">Login</a>
                       </li>
                       <li class="nav-item">
                           <a class="nav-link" href="signup-page.php">Sign Up</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="login.html">Login</a>
                       </li>
                   </ul>
               </div>

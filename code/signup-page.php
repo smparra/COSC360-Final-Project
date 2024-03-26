@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -43,23 +46,11 @@
                   </form>
                   <!--Navbar Items (Login, Signup, Regions)-->
                   <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Region
-                          </a>
-                          <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Canada</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">United States</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Bermuda</a></li>
-                          </ul>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="signup.php">Sign Up</a>
-                      </li>
                       <li class="nav-item">
                           <a class="nav-link" href="login-page.php">Login</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="signup-page.php">Sign Up</a>
                       </li>
                   </ul>
               </div>
@@ -104,7 +95,7 @@
             <input type="checkbox" class="mx-1 my-3" onclick="showPassword()">Show Password
           </div>
           <button type="submit" id="signUpButton" class="btn btn-primary">Sign up</button>
-          <hr><small id="loginHelp" class="d-flex mt-2 form-text text-muted justify-content-center">Already have an account?<a href="login-page.html" class="ms-1">Log in</a></small>
+          <hr><small id="loginHelp" class="d-flex mt-2 form-text text-muted justify-content-center">Already have an account?<a href="login-page.php" class="ms-1">Log in</a></small>
         </form>
       </div>
     </main>
