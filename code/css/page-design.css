@@ -46,6 +46,9 @@ main h2{
     border-color: transparent;
     color: black;
 }
+#updateButton{
+    margin-bottom:2em;
+}
 
 #footer-home{
     margin-top: 3em;
@@ -61,4 +64,8 @@ main h2{
     text-align: center;
     position: absolute;
     bottom: 0;
+}
+#error-message{
+    color: red;
+    font-size: x-small;
 }

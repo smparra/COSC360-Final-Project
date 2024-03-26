@@ -29,7 +29,7 @@
   }
   if($nrows>0){
     $errorMessage = "User already exists with provided email";
-    header("Location: ../signup.php?errorMessage=" . urlencode($errorMessage));
+    header("Location: ../signup-page.php?errorMessage=" . urlencode($errorMessage));
     exit();
   }else{
     $sql = "INSERT INTO users VALUES (?,?,?,?,?);";

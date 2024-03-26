@@ -69,40 +69,75 @@ session_start();
             </nav>
         </header>
         <main>
-            <h2 class="mb-3" style="margin-left: 45%; margin-top:2em; padding-bottom:0.5em;">Change Account Details</h2>
+            <h2 class="mb-3" style="margin-left: 44%; margin-top:1em;">Change Account Details</h2>
+            <?php 
+            // displays success message if details are changed successfully
+            if(isset($_GET['successMessage'])) { 
+            $successMessage = $_GET['successMessage'];
+            echo "<div style='color: green; margin-left: 44%'>$successMessage</div><br/>"; 
+            } 
+            else{
+                echo "<div></div><br/>";
+            }
+          ?>
             <div id="settings" class="d-flex justify-content-center">
                 <div>
-                    <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100" style="margin-bottom:1em"><br>
-                    <span>Claire Costello</span><br>
-                    <span style="padding-right:1em">claire.cost.31@gmail.com</span>
+                    <?php
+                        $email = $_SESSION['user'];
+                        $fname = $_SESSION['fname'];
+                        $lname = $_SESSION['lname'];
+                        echo '
+                        <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100" style="margin-bottom:1em; margin-right:4em "><br>
+                        <span>'.$fname.' '.$lname.'</span><br>
+                        <span style="padding-right:1em">'.$email.'</span>
+                        ';
+                    ?>
                 </div>
                 <!--Vertical Divider-->
                 <div class="vr mx-3"></div>
-                <form class="w-25">
-                <div class="mb-3 row">
-                    <div class="col">
-                      <label for="inputFirstName" class="form-label">New First Name</label>
-                      <input type="text" class="form-control" id="inputFirstname">
-                    </div>
-                    <div class="col">
-                        <label for="inputLastName" class="form-label">New Last Name</label>
-                        <input type="text" class="form-control" id="inputLastname">
-                    </div>
+                <div class="w-25">
+                    <form method="post" action="php/changeName.php" id="changeName" >
+                        <div class="mb-3 row">
+                            <div class="col">
+                                <label for="inputFirstName" class="form-label">New First Name</label>
+                                <input type="text" class="form-control" name="inputFirstName">
+                            </div>
+                            <div class="col">
+                                <label for="inputLastName" class="form-label">New Last Name</label>
+                                <input type="text" class="form-control" name="inputLastName">
+                            </div>
+                            <div id="name-error" style="color: red; font-size: small"></div>
+                        </div>
+                        <button type="submit" id="updateButton" class="btn btn-primary">Update Name</button>
+                    </form>
+                    <form method="post" action="php/changeEmail.php" id="changeEmail" >
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">New Email address</label>
+                            <input type="email" class="form-control" name="inputEmail">
+                            <?php 
+                                // displays error message if account has already been registered with inputted email 
+                                if(isset($_GET['errorMessage'])) { 
+                                    $errorMessage = $_GET['errorMessage'];
+                                    echo "<span id='email-error' style='color: red; font-size: small;'>$errorMessage</span><br/>"; 
+                                } 
+                            ?>
+                        </div>
+                        <button type="submit" id="updateButton" class="btn btn-primary">Update Email</button>
+                    </form>
+                    <form method="post" action="php/changePassword.php" id="changePassword" >
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="inputPassword">
+                            <div id="pass-error" style="color: red; font-size: small;"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirmPassword">
+                            <div id="confirmpass-error" style="color: red; font-size: small;"></div>
+                        </div>
+                        <button type="submit" id="updateButton" class="btn btn-primary">Update Password</button>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="inputEmail" class="form-label">New Email address</label>
-                    <input type="email" class="form-control" id="inputEmail">
-                </div>
-                <div class="mb-3">
-                    <label for="inputPassword" class="form-label">New Password</label>
-                    <input type="password" class="form-control" id="inputPassword">
-                </div>
-                <div class="mb-3">
-                    <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="inputPassword">
-                </div>
-                <button type="submit" id="updateButton" class="btn btn-primary">Save Changes</button>
-                </form>
             </div>
         </main>
         <footer>
@@ -120,5 +155,9 @@ session_start();
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+
+        <!--Validate User Entry-->
+        <script type="text/javascript" src="scripts/changeAccount.js"></script>
+
     </body>
 </html>
