@@ -29,7 +29,7 @@ session_start();
             <!--Navbar Start-->
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="home-page.php">
                         <img src="images/parrot.png" alt="Logo" height="30" width="30" class="d-inline-block align-text-top">
                         Parrot Pricing
                     </a>
@@ -57,15 +57,16 @@ session_start();
                                             Your Account
                                         </a>
                                     <ul class='dropdown-menu dropdown-menu-end'>
-                                        <li><a class='dropdown-item' href='account-page.php'>Account Details</a></li>
-                                        <li><hr class='dropdown-divider'></li>
-                                        <li><a class='dropdown-item' href='php/logout.php'>Logout</a></li>";
+                                        <li><a class='dropdown-item' href='account-page.php'>Account Details</a></li>";
                                         if ($_SESSION['permissions'] === "Admin" ){
                                             echo "
                                             <li><hr class='dropdown-divider'></li>
                                             <li><a class='dropdown-item' href='admin-page.php'>Admin Settings</a></li>";
                                         }
-                                    echo "</ul>";
+                                        echo "
+                                        <li><hr class='dropdown-divider'></li>
+                                        <li><a class='dropdown-item' href='php/logout.php'>Logout</a></li>
+                                    </ul>";
                                 } else{
                                     echo 
                                     "<li class='nav-item'>
