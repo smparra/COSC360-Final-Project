@@ -2,7 +2,7 @@
 session_start();
 
 if($_SESSION["permissions"]!="Admin"){
-  header("Location: ../home-page.php");
+  header("Location: home-page.php");
 }
 // connect to server
 include("php/configure.php");
@@ -94,7 +94,7 @@ if (mysqli_connect_errno()) {
         </header>
         <main>
           <h2 class="d-flex justify-content-center" style="margin-top:1em;">User Search</h2>
-          <div id="settings" class="d-flex" style='margin-left: 25%; margin-top: 6%; margin-bottom: 14.5% '>
+          <div id="settings" class="d-flex" style='margin-left: 25%; margin-top: 6%; margin-bottom: 33vh '>
             <div class="w-25">
                 <form method="get" action="" id="nameSearch">
                   <div class="mb-3">
