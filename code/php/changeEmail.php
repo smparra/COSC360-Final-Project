@@ -12,7 +12,7 @@ if (mysqli_connect_errno()) {
 
 // get values from signup form
 $newEmail = $_POST["inputEmail"];
-$currentEmail = $_SESSION['user'];
+$currentEmail = $_SESSION['email'];
 
 // Check if the new email is already in use
 $sql = "SELECT * FROM users WHERE email = ?";
@@ -35,7 +35,7 @@ if ($nrows > 0 || $newEmail == $currentEmail) {
         mysqli_stmt_bind_param($statement, "ss", $newEmail, $currentEmail);
         mysqli_stmt_execute($statement);
         // update session variable
-        $_SESSION['user'] = $newEmail;
+        $_SESSION['email'] = $newEmail;
         $successMessage = "Email updated";
         header("Location: ../account-page.php?successMessage=" . urlencode($successMessage));
         exit();

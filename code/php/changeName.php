@@ -13,7 +13,7 @@ if (mysqli_connect_errno()) {
 // get values from signup form
 $fname = $_POST["inputFirstName"];
 $lname = $_POST["inputLastName"];
-$email = $_SESSION['user'];
+$email = $_SESSION['email'];
 
 if (!empty($_POST["inputFirstName"]) && !empty($_POST["inputLastName"])){
   $sql = "UPDATE users SET firstName = ?, lastName = ? WHERE email = ?";

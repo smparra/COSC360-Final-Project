@@ -1,16 +1,11 @@
 <?php
 session_start();
-include("php/configure.php");
-include("php/scrollableCards.php");
-$conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-if (mysqli_connect_errno()) {
-  die("Connection failed: " . mysqli_connect_error());  
-}
 ?>
+
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Parrot Pricing</title>
+        <title>Account | Parrot Pricing</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -25,7 +20,7 @@ if (mysqli_connect_errno()) {
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
-        <!--Homepage Custom CSS-->
+        <!--Custom CSS-->
         <link rel="stylesheet" href="css/page-design.css">
     </head>
 
@@ -87,28 +82,48 @@ if (mysqli_connect_errno()) {
             </nav>
         </header>
         <main>
-            <h1 class="text-center mt-4">Parrot Pricing</h1>
-            <!--Scrollable Cards (Popular Items)-->
-            <div class="popular-items mx-5 mt-5">
-                <h4>Popular Items</h4>
-                <p>Browse our Popular Items to see what items that have become staples in the Parrot Pricing community</p>
-            </div>
-            <?php scrollableCards($conn,'popular', NULL);?>
-            <!--Scrollable Cards (Top Price Drop Items)-->
-            <div class="price-drop-items mx-5 mt-5">
-                <h4>Top Price Drop Items</h4>
-                <p>Check out the Steepest Price Dropped items to uncover unbeatable deals on must-have items!</p>
-            </div>
-            <?php scrollableCards($conn, 'sale', NULL);?>
-            <!--Scrollable Cards (Health & Beauty Items)-->
-            <div class="price-drop-items mx-5 mt-5">
-                <h4>Health & Beauty</h4>
-                <p>Explore our Health and Beauty Collection to discover essential products that will elevate your self-care routine!</p>
-            </div>
-            <?php scrollableCards($conn, NULL, 'beauty');?>
+            <h2 class="d-flex justify-content-center" style= "margin-top:1em;">User Search</h2>
+            <div id="settings" class="d-flex" style= 'margin-left: 25%; margin-top: 6% '>
+              <div class="w-25">
+                  <form method="post" action="" id="nameSearch" >
+                      <div class="mb-3">
+                          <label for="inputEmail" class="form-label">Search By Name</label>
+                          <input type="email" class="form-control" name="inputEmail">
+                      </div>
+                      <button type="submit" id="updateButton" class="btn btn-primary">Search</button>
+                  </form>
+                  <form method="post" action="" id="emailSearch" >
+                      <div class="mb-3">
+                          <label for="inputEmail" class="form-label">Search By Email</label>
+                          <input type="email" class="form-control" name="inputEmail">
+                      </div>
+                      <button type="submit" id="updateButton" class="btn btn-primary">Search</button>
+                  </form>
+              </div>
+              <!--Vertical Divider-->
+              <div class="vr mx-3 d-flex justify-content-center"></div>
+              <div>
+                <div class="mb-3 row align-items-center" style="border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
+                    <div class="col">
+                      <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100">
+                    </div>
+                    <div class="col" style="margin-top: 0%">
+                        <?php
+                        $email = $_SESSION['email'];
+                        $fname = $_SESSION['fname'];
+                        $lname = $_SESSION['lname'];
+                        echo
+                        '<br><span>'.$fname.' '.$lname.'</span><br>
+                        <span>'.$email.'</span>
+                        <button type="submit" id="updateButton" class="btn btn-primary">Disable User</button>
+                        ';
+                        ?>
+                    </div>
+                </div>
+              </div>
         </main>
         <footer>
-            <p id="footer-home" class="d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+            <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
@@ -123,13 +138,8 @@ if (mysqli_connect_errno()) {
             crossorigin="anonymous"
         ></script>
 
-        <!--JQuery-->
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <!--Validate User Entry-->
+        <script type="text/javascript" src="scripts/changeAccount.js"></script>
 
-        <!--Carousel Multiple Items-->
-        <script src="scripts/scroll.js"></script>
     </body>
 </html>
-
-<!-- Close connection -->
-<?php mysqli_close($conn);?>

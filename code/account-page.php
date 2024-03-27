@@ -29,7 +29,7 @@ session_start();
             <!--Navbar Start-->
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="home-page.php">
+                    <a class="navbar-brand" href="#">
                         <img src="images/parrot.png" alt="Logo" height="30" width="30" class="d-inline-block align-text-top">
                         Parrot Pricing
                     </a>
@@ -41,28 +41,41 @@ session_start();
                         <!--Search Form-->
                         <form class="d-flex ms-auto" role="search">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button id="search-button" class="btn btn-outline-success" type="submit">Search</button>
+                            <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                         <!--Navbar Items (Login, Signup, Regions)-->
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <?php 
-                            //if logged in, show dropdown, else login / sign up
-                            if (isset($_SESSION['user'])){
-                                echo "
-                                <li class='nav-item'>
-                                    <span class='nav-link'> Hello, ".$_SESSION['fname']."! </span>
-                                </li>
-                                <li class='nav-item dropdown'>
-                                    <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                                        Your Account
-                                    </a>
-                                <ul class='dropdown-menu dropdown-menu-end'>
-                                    <li><a class='dropdown-item' href='account-page.php'>Account Details</a></li>
-                                    <li><hr class='dropdown-divider'></li>
-                                    <li><a class='dropdown-item' href='php/logout.php'>Logout</a></li>
-                                </ul>";
-                            }
-                        ?>
+                            <?php 
+                                //if logged in, show dropdown, else login / sign up
+                                if (isset($_SESSION['email'])){
+                                    echo "
+                                    <li class='nav-item'>
+                                        <span class='nav-link'> Hello, ".$_SESSION['fname']."! </span>
+                                    </li>
+                                    <li class='nav-item dropdown'>
+                                        <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                            Your Account
+                                        </a>
+                                    <ul class='dropdown-menu dropdown-menu-end'>
+                                        <li><a class='dropdown-item' href='account-page.php'>Account Details</a></li>
+                                        <li><hr class='dropdown-divider'></li>
+                                        <li><a class='dropdown-item' href='php/logout.php'>Logout</a></li>";
+                                        if ($_SESSION['permissions'] === "Admin" ){
+                                            echo "
+                                            <li><hr class='dropdown-divider'></li>
+                                            <li><a class='dropdown-item' href='admin-page.php'>Admin Settings</a></li>";
+                                        }
+                                    echo "</ul>";
+                                } else{
+                                    echo 
+                                    "<li class='nav-item'>
+                                        <a class='nav-link' href='login-page.php'>Login</a>
+                                    </li>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='signup-page.php'>Sign Up</a>
+                                    </li>";
+                                }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -83,14 +96,17 @@ session_start();
             <div id="settings" class="d-flex justify-content-center">
                 <div>
                     <?php
-                        $email = $_SESSION['user'];
+                        $email = $_SESSION['email'];
                         $fname = $_SESSION['fname'];
                         $lname = $_SESSION['lname'];
-                        echo '
-                        <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100" style="margin-bottom:1em; margin-right:4em "><br>
-                        <span>'.$fname.' '.$lname.'</span><br>
-                        <span style="padding-right:1em">'.$email.'</span>
-                        ';
+                        
+                        echo '<img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100" style="margin-right:4em "><br>';
+                        if ($_SESSION['permissions'] === "Admin" ){
+                            echo "<br><div style='color: green;'>Admin</div>";
+                        }
+                        echo
+                        '<span>'.$fname.' '.$lname.'</span><br>
+                         <span style="padding-right:1em">'.$email.'</span>';
                     ?>
                 </div>
                 <!--Vertical Divider-->

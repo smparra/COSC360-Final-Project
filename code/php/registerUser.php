@@ -16,7 +16,7 @@
   $email = $_POST["inputEmail"];
   $pass = $_POST["inputPassword"];
   $hashPass = md5($pass);
-  $permissions = "user"; // new users have "user" permissions by default
+  $permissions = "User"; // new users have "user" permissions by default
 
   // check if user exists in database
   $sql = "SELECT * FROM users WHERE email = ?";
@@ -37,7 +37,7 @@
       mysqli_stmt_bind_param($statement, "sssss", $firstName, $lastName, $email, $hashPass, $permissions);
       mysqli_stmt_execute($statement);
       mysqli_close($conn);
-      $_SESSION["user"] = $email;
+      $_SESSION["email"] = $email;
       $_SESSION["fname"] = $firstName;
       $_SESSION["permissions"] = $permissions;
       header("Location: ../home-page.php"); 

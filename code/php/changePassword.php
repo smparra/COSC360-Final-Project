@@ -10,7 +10,7 @@
   // get values from signup form
   $pass = $_POST["inputPassword"];
   $hashpass = md5($pass);
-  $email = $_SESSION['user'];
+  $email = $_SESSION['email'];
 
   $sql = "UPDATE users SET password = ? WHERE email = ?";
   if($statement = mysqli_prepare($conn, $sql)) {
