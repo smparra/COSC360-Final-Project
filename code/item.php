@@ -165,11 +165,11 @@ if (mysqli_connect_errno()) {
                 <div class="my-4 d-flex justify-content-center">
                     <div class="w-50">
                         <h5><hr>Leave Feedback</h5>
-                        <form>
+                        <form method="post" action="addComment.php" id="addComment">
                             <div class="mb-3">
-                                <input type="text" class="w-25 form-control" id="add-comment">
+                                <input type="text" class="w-25 form-control" id="addComment" name="comment">
                             </div>
-                            <button type="submit" id="button-comment" class="btn btn-primary">Comment</button>
+                            <button type="submit" id="commentButton" class="btn btn-primary">Comment</button>
                         </form>
                     </div>
                 </div>
