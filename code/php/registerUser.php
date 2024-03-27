@@ -3,9 +3,7 @@
 
 <?php
   session_start();
-  if($_SESSION["permissions"]!="Admin"){
-    header("Location: home-page.php");
-  }
+
   // connect to server
   include("configure.php");
   $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
@@ -20,6 +18,7 @@
   $pass = $_POST["inputPassword"];
   $hashPass = md5($pass);
   $permissions = "User"; // new users have "user" permissions by default
+  $isActive = "True"; // user activated when account is created
 
   // check if user exists in database
   $sql = "SELECT * FROM users WHERE email = ?";
@@ -35,9 +34,9 @@
     header("Location: ../signup-page.php?errorMessage=" . urlencode($errorMessage));
     exit();
   }else{
-    $sql = "INSERT INTO users VALUES (?,?,?,?,?);";
+    $sql = "INSERT INTO users VALUES (?,?,?,?,?,?);";
     if($statement = mysqli_prepare($conn, $sql)){
-      mysqli_stmt_bind_param($statement, "sssss", $firstName, $lastName, $email, $hashPass, $permissions);
+      mysqli_stmt_bind_param($statement, "ssssss", $firstName, $lastName, $email, $hashPass, $permissions, $isActive);
       mysqli_stmt_execute($statement);
       mysqli_close($conn);
       $_SESSION["email"] = $email;

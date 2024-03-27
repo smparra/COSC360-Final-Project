@@ -69,6 +69,15 @@ main h2{
     position: absolute;
     bottom: 0;
 }
+#footer-admin{
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #D4E0B1;
+    border: solid;
+    border-color: transparent;
+}
 #error-message{
     color: red;
     font-size: small;

@@ -1,7 +1,9 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
 session_start();
+
+if($_SESSION["permissions"]!="Admin"){
+  header("Location: ../home-page.php");
+}
 // connect to server
 include("php/configure.php");
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
@@ -32,7 +34,7 @@ if (mysqli_connect_errno()) {
         <link rel="stylesheet" href="css/page-design.css">
     </head>
 
-    <body>
+    <body id='body-admin'>
         <header>
             <!--Navbar Start-->
             <nav class="navbar navbar-expand-lg">
@@ -92,7 +94,7 @@ if (mysqli_connect_errno()) {
         </header>
         <main>
           <h2 class="d-flex justify-content-center" style="margin-top:1em;">User Search</h2>
-          <div id="settings" class="d-flex" style='margin-left: 25%; margin-top: 6% '>
+          <div id="settings" class="d-flex" style='margin-left: 25%; margin-top: 6%; margin-bottom: 14.5% '>
             <div class="w-25">
                 <form method="get" action="" id="nameSearch">
                   <div class="mb-3">
@@ -117,20 +119,32 @@ if (mysqli_connect_errno()) {
             if (isset($_GET['inputName'])) {
               $nameSearch = $_GET['inputName'];
               $nameSearchParam = "%$nameSearch%";
-              $sql = "SELECT firstName, lastName, email, permissions FROM users WHERE CONCAT(firstName, ' ', lastName) LIKE ?";
+              $sql = "SELECT firstName, lastName, email, active FROM users WHERE CONCAT(firstName, ' ', lastName) LIKE ?";
               if ($statement = mysqli_prepare($conn, $sql)) {
                 mysqli_stmt_bind_param($statement, "s", $nameSearchParam);
                 mysqli_stmt_execute($statement);
-                mysqli_stmt_bind_result($statement, $fname, $lname, $email, $permissions);
+                mysqli_stmt_bind_result($statement, $fname, $lname, $email, $isActive);
                 while (mysqli_stmt_fetch($statement)) {
-                  echo '<div class="mb-3 row align-items-center" style="border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
-                          <div class="col">
+                  echo '<div class="mb-3 row align-items-center" style= "width: 25em; border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
+                          <div class="col-auto" style="width: 35%;">
                             <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100">
                           </div>
-                        <div class="col" style="margin-top: 0%">
+                        <div class="col">
                           <br><span>' . $fname . ' ' . $lname . '</span><br>
-                          <span>' . $email . '</span>
-                          <button type="submit" id="updateButton" class="btn btn-primary">Disable User</button>
+                          <span>' . $email . '</span>';
+                            if($isActive==="True"){
+                            echo'
+                            <form action="php/toggleActive.php" method="post">
+                              <input type="hidden" name="disable-email" value="'.$email.'">
+                              <button type="submit" id="updateButton" class="btn btn-primary" style="margin-top:0.5em; background-color:#FF6961; border-color:#FF6961; ">Disable User</button>';
+                            }else{
+                            echo'
+                            <form action="php/toggleActive.php" method="post">
+                              <input type="hidden" name="enable-email" value="'.$email.'">
+                              <button type="submit" id="updateButton" class="btn btn-primary" style="margin-top:0.5em; background-color:#D4E0B1; border-color:#D4E0B1; ">Enable User</button>';
+                            }
+                          echo'
+                          </form>
                         </div>
                       </div>';
                 }
@@ -143,20 +157,32 @@ if (mysqli_connect_errno()) {
             if (isset($_GET['inputEmail'])) {
               $emailSearch = $_GET['inputEmail'];
               $emailSearchParam = "%$emailSearch%";
-              $sql = "SELECT firstName, lastName, email, permissions FROM users WHERE email LIKE ?";
+              $sql = "SELECT firstName, lastName, email, active FROM users WHERE email LIKE ?";
               if ($statement = mysqli_prepare($conn, $sql)) {
                 mysqli_stmt_bind_param($statement, "s", $emailSearchParam);
                 mysqli_stmt_execute($statement);
-                mysqli_stmt_bind_result($statement, $fname, $lname, $email, $permissions);
+                mysqli_stmt_bind_result($statement, $fname, $lname, $email, $isActive);
                 while (mysqli_stmt_fetch($statement)) {
-                  echo '<div class="mb-3 row align-items-center" style="border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
-                          <div class="col">
+                  echo '<div class="mb-3 row align-items-center" style= "width: 25em; border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
+                          <div class="col-auto" style="width: 35%;">
                             <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100">
                           </div>
-                        <div class="col" style="margin-top: 0%">
+                        <div class="col">
                           <br><span>' . $fname . ' ' . $lname . '</span><br>
-                          <span>' . $email . '</span>
-                          <button type="submit" id="updateButton" class="btn btn-primary">Disable User</button>
+                          <span>' . $email . '</span>';
+                            if($isActive==="True"){
+                            echo'
+                            <form action="php/toggleActive.php" method="post">
+                              <input type="hidden" name="disable-email" value="'.$email.'">
+                              <button type="submit" id="updateButton" class="btn btn-primary" style="margin-top:0.5em; background-color:#FF6961; border-color:#FF6961; ">Disable User</button>';
+                            }else{
+                            echo'
+                            <form action="php/toggleActive.php" method="post">
+                              <input type="hidden" name="enable-email" value="'.$email.'">
+                              <button type="submit" id="updateButton" class="btn btn-primary" style="margin-top:0.5em; background-color:#D4E0B1; border-color:#D4E0B1; ">Enable User</button>';
+                            }
+                          echo'
+                          </form>
                         </div>
                       </div>';
                 }
@@ -169,7 +195,7 @@ if (mysqli_connect_errno()) {
           </div>
         </main>
         <footer>
-          <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+          <p id="footer-home" class="py-2 class= d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
