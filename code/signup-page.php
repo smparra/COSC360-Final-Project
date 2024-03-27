@@ -68,15 +68,17 @@ session_start();
             echo "<div style='color: red;'>$errorMessage</div><br/>"; 
             } 
           ?>
-          <div class="mb-3">
-            <label for="inputFirstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" name="inputFirstName">
-            <div id="fname-error" style="color: red;"></div>
-          </div>
-          <div class="mb-3">
-            <label for="inputLastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" name="inputLastName">
-            <div id="lname-error" style="color: red;"></div>
+          <div class="mb-3 row">
+            <div class="mb-3 col">
+              <label for="inputFirstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" name="inputFirstName">
+              <div id="fname-error" style="color: red;"></div>
+            </div>
+            <div class="mb-3 col">
+              <label for="inputLastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" name="inputLastName">
+              <div id="lname-error" style="color: red;"></div>
+            </div>
           </div>
           <div class="mb-3">
             <label for="inputEmail" class="form-label">Email address</label>
@@ -93,6 +95,9 @@ session_start();
             <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
             <div id="confirmpass-error" style="color: red;"></div>
             <input type="checkbox" class="mx-1 my-3" onclick="showPassword()">Show Password
+          </div>
+          <div class="mb-3">
+            <input type="file" name="fileupload"/>
           </div>
           <button type="submit" id="signUpButton" class="btn btn-primary">Sign up</button>
           <hr><small id="loginHelp" class="d-flex mt-2 form-text text-muted justify-content-center">Already have an account?<a href="login-page.php" class="ms-1">Log in</a></small>
