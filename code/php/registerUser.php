@@ -3,6 +3,9 @@
 
 <?php
   session_start();
+  if($_SESSION["permissions"]!="Admin"){
+    header("Location: home-page.php");
+  }
   // connect to server
   include("configure.php");
   $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
@@ -39,6 +42,7 @@
       mysqli_close($conn);
       $_SESSION["email"] = $email;
       $_SESSION["fname"] = $firstName;
+      $_SESSION["lname"] = $lastName;
       $_SESSION["permissions"] = $permissions;
       header("Location: ../home-page.php"); 
       exit();

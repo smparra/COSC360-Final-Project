@@ -1,5 +1,13 @@
 <?php
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
 session_start();
+// connect to server
+include("php/configure.php");
+$conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+if (mysqli_connect_errno()) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 ?>
 
 <!doctype html>
@@ -83,64 +91,97 @@ session_start();
             </nav>
         </header>
         <main>
-            <h2 class="d-flex justify-content-center" style= "margin-top:1em;">User Search</h2>
-            <div id="settings" class="d-flex" style= 'margin-left: 25%; margin-top: 6% '>
-              <div class="w-25">
-                  <form method="post" action="" id="nameSearch" >
-                      <div class="mb-3">
-                          <label for="inputEmail" class="form-label">Search By Name (First or Last)</label>
-                          <input type="email" class="form-control" name="inputEmail">
-                      </div>
-                      <button type="submit" id="updateButton" class="btn btn-primary">Search</button>
-                  </form>
-                  <form method="post" action="" id="emailSearch" >
-                      <div class="mb-3">
-                          <label for="inputEmail" class="form-label">Search By Email</label>
-                          <input type="email" class="form-control" name="inputEmail">
-                      </div>
-                      <button type="submit" id="updateButton" class="btn btn-primary">Search</button>
-                  </form>
+          <h2 class="d-flex justify-content-center" style="margin-top:1em;">User Search</h2>
+          <div id="settings" class="d-flex" style='margin-left: 25%; margin-top: 6% '>
+            <div class="w-25">
+                <form method="get" action="" id="nameSearch">
+                  <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Search By Name</label>
+                    <input type="text" class="form-control" name="inputName">
+                  </div>
+                  <button type="submit" id="updateButton" class="btn btn-primary">Search</button>
+                </form>
+                <form method="get" action="" id="emailSearch" >
+                  <div class="mb-3">
+                    <label for="inputEmail" class="form-label">Search By Email</label>
+                    <input type="text" class="form-control" name="inputEmail">
+                  </div>
+                  <button type="submit" id="updateButton" class="btn btn-primary">Search</button>
+                </form>
               </div>
               <!--Vertical Divider-->
               <div class="vr mx-3 d-flex justify-content-center"></div>
               <div>
-                <div class="mb-3 row align-items-center" style="border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
-                    <div class="col">
-                      <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100">
-                    </div>
-                    <div class="col" style="margin-top: 0%">
-                        <?php
-                        $email = $_SESSION['email'];
-                        $fname = $_SESSION['fname'];
-                        $lname = $_SESSION['lname'];
-                        echo
-                        '<br><span>'.$fname.' '.$lname.'</span><br>
-                        <span>'.$email.'</span>
-                        <button type="submit" id="updateButton" class="btn btn-primary">Disable User</button>
-                        ';
-                        ?>
-                    </div>
-                </div>
-              </div>
+            <?php
+            // if admin is searching by name
+            if (isset($_GET['inputName'])) {
+              $nameSearch = $_GET['inputName'];
+              $nameSearchParam = "%$nameSearch%";
+              $sql = "SELECT firstName, lastName, email, permissions FROM users WHERE CONCAT(firstName, ' ', lastName) LIKE ?";
+              if ($statement = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($statement, "s", $nameSearchParam);
+                mysqli_stmt_execute($statement);
+                mysqli_stmt_bind_result($statement, $fname, $lname, $email, $permissions);
+                while (mysqli_stmt_fetch($statement)) {
+                  echo '<div class="mb-3 row align-items-center" style="border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
+                          <div class="col">
+                            <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100">
+                          </div>
+                        <div class="col" style="margin-top: 0%">
+                          <br><span>' . $fname . ' ' . $lname . '</span><br>
+                          <span>' . $email . '</span>
+                          <button type="submit" id="updateButton" class="btn btn-primary">Disable User</button>
+                        </div>
+                      </div>';
+                }
+                mysqli_stmt_close($statement);
+              } else {
+                  echo "Error in preparing statement: " . mysqli_error($conn);
+              }
+            }
+            // if admin is seaching by email
+            if (isset($_GET['inputEmail'])) {
+              $emailSearch = $_GET['inputEmail'];
+              $emailSearchParam = "%$emailSearch%";
+              $sql = "SELECT firstName, lastName, email, permissions FROM users WHERE email LIKE ?";
+              if ($statement = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($statement, "s", $emailSearchParam);
+                mysqli_stmt_execute($statement);
+                mysqli_stmt_bind_result($statement, $fname, $lname, $email, $permissions);
+                while (mysqli_stmt_fetch($statement)) {
+                  echo '<div class="mb-3 row align-items-center" style="border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
+                          <div class="col">
+                            <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100">
+                          </div>
+                        <div class="col" style="margin-top: 0%">
+                          <br><span>' . $fname . ' ' . $lname . '</span><br>
+                          <span>' . $email . '</span>
+                          <button type="submit" id="updateButton" class="btn btn-primary">Disable User</button>
+                        </div>
+                      </div>';
+                }
+                mysqli_stmt_close($statement);
+              } else {
+                  echo "Error in preparing statement: " . mysqli_error($conn);
+              }
+            }
+            ?>
+          </div>
         </main>
         <footer>
-            <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+          <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
+          src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+          integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+          crossorigin="anonymous"
         ></script>
 
         <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+          integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+          crossorigin="anonymous"
         ></script>
-
-        <!--Validate User Entry-->
-        <script type="text/javascript" src="scripts/changeAccount.js"></script>
-
     </body>
-</html>
+  </html>
