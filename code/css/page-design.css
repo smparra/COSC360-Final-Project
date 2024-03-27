@@ -1,9 +1,9 @@
 .scrolling-wrapper{
     overflow-x: scroll;
     white-space: nowrap;
-    .card {
-        display: inline-block;
-    }
+}
+.card {
+    display: inline-block;
 }
 
 nav{
@@ -21,6 +21,10 @@ main h2{
 
 #feedback-form{
     margin-top: 40em;
+}
+  
+#create-account{
+    margin-top: 1em;
 }
 
 #search-button{
@@ -46,8 +50,12 @@ main h2{
     border-color: transparent;
     color: black;
 }
+#updateButton{
+    margin-bottom:2em;
+}
 
 #footer-home{
+    margin-top: 3em;
     border:solid;
     border-color: transparent;
     background-color: #D4E0B1;
@@ -60,4 +68,8 @@ main h2{
     text-align: center;
     position: absolute;
     bottom: 0;
+}
+#error-message{
+    color: red;
+    font-size: small;
 }
