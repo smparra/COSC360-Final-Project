@@ -1,16 +1,11 @@
 <?php
 session_start();
-include("php/configure.php");
-include("php/scrollableCards.php");
-$conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-if (mysqli_connect_errno()) {
-  die("Connection failed: " . mysqli_connect_error());  
-}
 ?>
+
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Parrot Pricing</title>
+        <title>Account | Parrot Pricing</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -25,7 +20,7 @@ if (mysqli_connect_errno()) {
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
-        <!--Homepage Custom CSS-->
+        <!--Custom CSS-->
         <link rel="stylesheet" href="css/page-design.css">
     </head>
 
@@ -87,28 +82,82 @@ if (mysqli_connect_errno()) {
             </nav>
         </header>
         <main>
-            <h1 class="text-center mt-4">Parrot Pricing</h1>
-            <!--Scrollable Cards (Popular Items)-->
-            <div class="popular-items mx-5 mt-5">
-                <h4>Popular Items</h4>
-                <p>Browse our Popular Items to see what items that have become staples in the Parrot Pricing community</p>
+            <h2 class="mb-3" style="margin-left: 44%; margin-top:1em;">Change Account Details</h2>
+            <?php 
+            // displays success message if details are changed successfully
+            if(isset($_GET['successMessage'])) { 
+            $successMessage = $_GET['successMessage'];
+            echo "<div style='color: green; margin-left: 44%'>$successMessage</div><br/>"; 
+            } 
+            else{
+                echo "<div></div><br/>";
+            }
+          ?>
+            <div id="settings" class="d-flex justify-content-center">
+                <div>
+                    <?php
+                        $email = $_SESSION['email'];
+                        $fname = $_SESSION['fname'];
+                        $lname = $_SESSION['lname'];
+                        
+                        echo '<img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100" style="margin-right:4em "><br>';
+                        if ($_SESSION['permissions'] === "Admin" ){
+                            echo "<br><div style='color: green;'>Admin</div>";
+                        }
+                        echo
+                        '<span>'.$fname.' '.$lname.'</span><br>
+                         <span style="padding-right:1em">'.$email.'</span>';
+                    ?>
+                </div>
+                <!--Vertical Divider-->
+                <div class="vr mx-3"></div>
+                <div class="w-25">
+                    <form method="post" action="php/changeName.php" id="changeName" >
+                        <div class="mb-3 row">
+                            <div class="col">
+                                <label for="inputFirstName" class="form-label">New First Name</label>
+                                <input type="text" class="form-control" name="inputFirstName">
+                            </div>
+                            <div class="col">
+                                <label for="inputLastName" class="form-label">New Last Name</label>
+                                <input type="text" class="form-control" name="inputLastName">
+                            </div>
+                            <div id="name-error" style="color: red; font-size: small"></div>
+                        </div>
+                        <button type="submit" id="updateButton" class="btn btn-primary">Update Name</button>
+                    </form>
+                    <form method="post" action="php/changeEmail.php" id="changeEmail" >
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">New Email address</label>
+                            <input type="email" class="form-control" name="inputEmail">
+                            <?php 
+                                // displays error message if account has already been registered with inputted email 
+                                if(isset($_GET['errorMessage'])) { 
+                                    $errorMessage = $_GET['errorMessage'];
+                                    echo "<span id='email-error' style='color: red; font-size: small;'>$errorMessage</span><br/>"; 
+                                } 
+                            ?>
+                        </div>
+                        <button type="submit" id="updateButton" class="btn btn-primary">Update Email</button>
+                    </form>
+                    <form method="post" action="php/changePassword.php" id="changePassword" >
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="inputPassword">
+                            <div id="pass-error" style="color: red; font-size: small;"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirmPassword">
+                            <div id="confirmpass-error" style="color: red; font-size: small;"></div>
+                        </div>
+                        <button type="submit" id="updateButton" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
             </div>
-            <?php scrollableCards($conn,'popular', NULL);?>
-            <!--Scrollable Cards (Top Price Drop Items)-->
-            <div class="price-drop-items mx-5 mt-5">
-                <h4>Top Price Drop Items</h4>
-                <p>Check out the Steepest Price Dropped items to uncover unbeatable deals on must-have items!</p>
-            </div>
-            <?php scrollableCards($conn, 'sale', NULL);?>
-            <!--Scrollable Cards (Health & Beauty Items)-->
-            <div class="price-drop-items mx-5 mt-5">
-                <h4>Health & Beauty</h4>
-                <p>Explore our Health and Beauty Collection to discover essential products that will elevate your self-care routine!</p>
-            </div>
-            <?php scrollableCards($conn, NULL, 'beauty');?>
         </main>
         <footer>
-            <p id="footer-home" class="d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+            <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
@@ -123,13 +172,8 @@ if (mysqli_connect_errno()) {
             crossorigin="anonymous"
         ></script>
 
-        <!--JQuery-->
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <!--Validate User Entry-->
+        <script type="text/javascript" src="scripts/changeAccount.js"></script>
 
-        <!--Carousel Multiple Items-->
-        <script src="scripts/scroll.js"></script>
     </body>
 </html>
-
-<!-- Close connection -->
-<?php mysqli_close($conn);?>

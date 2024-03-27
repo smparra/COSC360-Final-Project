@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Signup | Parrot Pricing</title>
+    <title>Login | Parrot Pricing</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -18,7 +18,7 @@
     />
 
     <!--Custom CSS-->
-    <link rel="stylesheet" href="page-design.css">
+    <link rel="stylesheet" href="css/page-design.css">
   </head>
 
   <body>
@@ -26,7 +26,7 @@
       <!--Navbar Start-->
       <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
-              <a class="navbar-brand" href="home.html">
+              <a class="navbar-brand" href="home-page.php">
                   <img src="images/parrot.png" alt="Logo" height="30" width="30" class="d-inline-block align-text-top">
                   Parrot Pricing
               </a>
@@ -42,23 +42,11 @@
                   </form>
                   <!--Navbar Items (Login, Signup, Regions)-->
                   <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Region
-                          </a>
-                          <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="#">Canada</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">United States</a></li>
-                          <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="#">Bermuda</a></li>
-                          </ul>
+                      <li class="nav-item">
+                          <a class="nav-link" href="login-page.php">Login</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link" href="signup.html">Sign Up</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="login.html">Login</a>
+                          <a class="nav-link" href="signup-page.php">Sign Up</a>
                       </li>
                   </ul>
               </div>
@@ -66,24 +54,29 @@
       </nav>
     </header>
     <main>
-      <h2 class="text-center mb-4">Create a Parrot Pricing Account</h2>
+      <h2 class="text-center mb-4">Login</h2>
       <div id="login" class="d-flex justify-content-center">
-        <form class="w-25">
+        <form method="post" action="php/login.php" id="mainForm" class="w-25">
+        <?php 
+          // displays error message from registerUser.php if account has already been registered with inputted email 
+            if(isset($_GET['errorMessage'])) { 
+            $errorMessage = $_GET['errorMessage'];
+            echo "<div style='color: red;'>$errorMessage</div><br/>"; 
+            } 
+          ?>
           <div class="mb-3">
             <label for="inputEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="inputEmail">
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail">
+            <div id="email-error" style="color: red;"></div>
           </div>
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="inputPassword">
-          </div>
-          <div class="mb-3">
-            <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="confirmPassword">
+            <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+            <div id="pass-error" style="color: red;"></div>
             <input type="checkbox" class="mx-1 my-3" onclick="showPassword()">Show Password
           </div>
-          <button type="submit" id="signUpButton" class="btn btn-primary">Sign up</button>
-          <hr><small id="loginHelp" class="d-flex mt-2 form-text text-muted justify-content-center">Already have an account?<a href="login.html" class="ms-1">Log in</a></small>
+          <button type="submit" class="btn btn-primary">Login</button>
+          <hr><small id="loginHelp" class="d-flex mt-2 form-text text-muted justify-content-center">Create an account?<a href="signup-page.php" class="ms-1">Sign up</a></small>
         </form>
       </div>
     </main>
@@ -108,5 +101,9 @@
 
     <!--Carousel Multiple Items-->
     <script src="scripts/togglePassword.js"></script>
+
+    <!--Validate User Entry-->
+    <script type="text/javascript" src="scripts/login.js"></script>
+
   </body>
 </html>
