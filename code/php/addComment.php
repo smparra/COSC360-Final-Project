@@ -19,6 +19,7 @@
         mysqli_stmt_execute($statement);
         mysqli_close($conn);
         $successMessage = "Comment Added!";
+        viewComments($conn,$productID);
         header("Location: ../item.php?successMessage=" . urlencode($successMessage));
         exit();
     }

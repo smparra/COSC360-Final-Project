@@ -1,10 +1,20 @@
 <?php
-session_start();
-include("php/configure.php");
+include("php/getProductDetails.php");
 include("php/viewComments.php");
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 if (mysqli_connect_errno()) {
   die("Connection failed: " . mysqli_connect_error());  
+}
+?>
+
+<?php
+if(isset($_GET['ProductID'])){
+    $productID = $_GET['ProductID'];
+    $productDetails = getProductDetails($conn,$productID);
+}
+else{
+    echo "Product ID not found in URL";
+    exit;
 }
 ?>
 
@@ -36,7 +46,7 @@ if (mysqli_connect_errno()) {
             <!--Navbar Start-->
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="home-page.php">
                         <img src="images/parrot.png" alt="Logo" height="30" width="30" class="d-inline-block align-text-top">
                         Parrot Pricing
                     </a>
@@ -80,13 +90,13 @@ if (mysqli_connect_errno()) {
         </header>
         <main>
             <section>
-                <h2 class="text-center my-4">Item Title</h2>
+                <h2 class="text-center my-4"><?php echo $productDetails['Name']?></h2>
                 <div id="item-details" class="d-flex justify-content-center">
-                    <img src="images/apple-watch.jpg" style="width: 35rem;" alt="">
+                    <img src="<?php echo 'php/image.php?id=' . $productDetails['ProductID']; ?>" style="width: 35rem;" alt="">
                 </div>
                 <div id="item-details" class="d-flex justify-content-center">
                     <div class="w-50 text-success">
-                        <h3>Best Price:</h3>
+                        <h3>Best Price: <?php echo $productDetails['Price']?></h3>
                     </div>
                 </div>
                 <div id="price-tracker" class="my-4 d-flex justify-content-center">
@@ -105,58 +115,52 @@ if (mysqli_connect_errno()) {
                 </div>
                 <div class="my-4 d-flex justify-content-center">
                     <div class="w-50">
-                        <h5>Price History</h5>
-                        <canvas id="priceChart" style="height:25em;width:100%;max-width:100em"></canvas>
-                    </div>
-                </div>
-                <div class="my-4 d-flex justify-content-center">
-                    <div class="w-50">
                         <h5>Product Details</h5>
                         <table class="table table-striped">
                             <tbody>
                               <tr>
                                 <th>Product group</th>
-                                <td>1</td>
+                                <td><?php echo $productDetails['Class']?></td>
                               </tr>
                               <tr>
                                 <th>Category</th>
-                                <td>2</td>
+                                <td><?php echo $productDetails['Category']?></td>
                               </tr>
                               <tr>
                                 <th>Manufacturer</th>
-                                <td>3</td>
+                                <td>N/A</td>
                               </tr>
                               <tr>
                                 <th>Model</th>
-                                <td>4</td>
+                                <td>N/A</td>
                               </tr>
                               <tr>
                                 <th>Locale</th>
-                                <td>5</td>
+                                <td>N/A</td>
                               </tr>
                               <tr>
                                 <th>List price</th>
-                                <td>6</td>
+                                <td><?php echo $productDetails['Price']?></td>
                               </tr>
                               <tr>
                                 <th>EAN</th>
-                                <td>7</td>
+                                <td><?php echo $productDetails['ProductID']?></td>
                               </tr>
                               <tr>
                                 <th>UPC</th>
-                                <td>8</td>
+                                <td><?php echo $productDetails['ProductID']?></td>
                               </tr>
                               <tr>
                                 <th>SKU</th>
-                                <td>9</td>
+                                <td><?php echo $productDetails['ProductID']?></td>
                               </tr>
                               <tr>
                                 <th>Last update scan</th>
-                                <td>10</td>
+                                <td>N/A</td>
                               </tr>
                               <tr>
                                 <th>Last tracked</th>
-                                <td>11</td>
+                                <td>N/A</td>
                               </tr>
                             </tbody>
                           </table>
@@ -176,7 +180,7 @@ if (mysqli_connect_errno()) {
                 </div>
                 <div class="my-4 d-flex justify-content-center">
                     <div class="w-50">
-                    <?php viewComments($conn,0)?>
+                    <?php viewComments($conn,$productID)?>
                     </div>
                 </div>
             </section>
