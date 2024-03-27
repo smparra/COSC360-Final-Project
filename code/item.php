@@ -1,14 +1,14 @@
-<!doctype html>
-
-<!-- Connect to server -->
 <?php
-include("configure.php");
+session_start();
+include("php/configure.php");
+include("php/viewComments.php");
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-
 if (mysqli_connect_errno()) {
-  die("Connection failed: " . mysqli_connect_error());
+  die("Connection failed: " . mysqli_connect_error());  
 }
 ?>
+
+<!doctype html>
 
 <html lang="en">
     <head>
@@ -164,13 +164,19 @@ if (mysqli_connect_errno()) {
                 </div>
                 <div class="my-4 d-flex justify-content-center">
                     <div class="w-50">
-                        <h5><hr>Leave Feedback</h5>
-                        <form method="post" action="addComment.php" id="addComment">
+                        <h5>Comments</h5>
+                        <h6><hr>Leave Feedback</h6>
+                        <form method="post" action="php/addComment.php" id="addComment">
                             <div class="mb-3">
                                 <input type="text" class="w-25 form-control" id="addComment" name="comment">
                             </div>
                             <button type="submit" id="commentButton" class="btn btn-primary">Comment</button>
                         </form>
+                    </div>
+                </div>
+                <div class="my-4 d-flex justify-content-center">
+                    <div class="w-50">
+                    <?php viewComments($conn,0)?>
                     </div>
                 </div>
             </section>
