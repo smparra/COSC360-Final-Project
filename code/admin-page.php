@@ -87,7 +87,7 @@ session_start();
               <div class="w-25">
                   <form method="post" action="" id="nameSearch" >
                       <div class="mb-3">
-                          <label for="inputEmail" class="form-label">Search By Name</label>
+                          <label for="inputEmail" class="form-label">Search By Name (First or Last)</label>
                           <input type="email" class="form-control" name="inputEmail">
                       </div>
                       <button type="submit" id="updateButton" class="btn btn-primary">Search</button>
