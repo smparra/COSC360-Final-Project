@@ -14,13 +14,13 @@
   }
   $email = $_POST["inputEmail"];
   $enteredPass = $_POST["inputPassword"];
-  $sql = "SELECT password, firstName, lastName, active FROM users WHERE email = ?";
+  $sql = "SELECT password, firstName, lastName, permissions, active FROM users WHERE email = ?";
 
   // preparing statement and fetching results
   if($statement = mysqli_prepare($conn, $sql)) {
     mysqli_stmt_bind_param($statement, "s", $email);
     mysqli_stmt_execute($statement);
-    mysqli_stmt_bind_result($statement, $storedPass, $fname, $lname, $isActive); 
+    mysqli_stmt_bind_result($statement, $storedPass, $fname, $lname, $permissions, $isActive); 
     mysqli_stmt_fetch($statement);
     mysqli_close($conn);
     // check for password match and active account
@@ -29,6 +29,8 @@
         $_SESSION["email"] = $email;
         $_SESSION["fname"] = $fname;
         $_SESSION["lname"] = $lname;
+        $_SESSION["permissions"] = $permissions;
+
         header("Location: ../home-page.php");
         exit();
       }else{
