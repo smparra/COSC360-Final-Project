@@ -19,7 +19,7 @@
 
   //image upload
   $maxBlobSize = 65000; 
-  if(isset($_FILES["fileupload"])) {
+  if ($_FILES['fileupload']['error'] == UPLOAD_ERR_OK) {
     if ($_FILES['fileupload']['size'] > $maxBlobSize) {
       $errorMessage = "Image File Too Large";
       header("Location: ../signup-page.php?errorMessage=" . urlencode($errorMessage));
