@@ -127,8 +127,8 @@ if (mysqli_connect_errno()) {
                 while (mysqli_stmt_fetch($statement)) {
                   echo '<div class="mb-3 row align-items-center" style= "width: 25em; border-style: solid; border-radius: 10px; border-color:lightgray; margin-left:1em">
                           <div class="col-auto" style="width: 35%;">
-                            <img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100">';
-                            if($isActive==="False"){echo'<br><span style="color:red";>Inactive</span>';}
+                          <img src="php/profile-picture.php?email='.$email.'" alt="profile photo" height="100" width="100" style="margin-right:4em "><br>';
+                          if($isActive==="False"){echo'<br><span style="color:red";>Inactive</span>';}
                             echo'
                           </div>
                         <div class="col">

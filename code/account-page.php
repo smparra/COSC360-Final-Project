@@ -101,14 +101,27 @@ session_start();
                         $fname = $_SESSION['fname'];
                         $lname = $_SESSION['lname'];
                         
-                        echo '<img src="images/profile-photo.jpeg" alt="profile photo" height="100" width="100" style="margin-right:4em "><br>';
+                        echo '<img src="php/profile-picture.php?email='.$email.'" alt="profile photo" height="100" width="100" style="margin-right:4em "><br>';
                         if ($_SESSION['permissions'] === "Admin" ){
                             echo "<br><div style='color: green;'>Admin</div>";
                         }
                         echo
                         '<span>'.$fname.' '.$lname.'</span><br>
-                         <span style="padding-right:1em">'.$email.'</span>';
+                         <span style="padding-right:1em">'.$email.'</span><br><br>';
                     ?>
+                <form method="post" action="php/changeProfilePic.php" enctype="multipart/form-data" id="mainForm">
+                    <div class="mb-3">
+                        <label for="fileToUpload" style="margin-bottom:0.5em;">Update Profile Photo:</label><br>
+                        <input type="file" name="fileupload"/>
+                    </div>
+                    <button type="submit" id="signUpButton" class="btn btn-primary">Submit</button>   
+                </form> 
+                <?php
+                if(isset($_GET['fileErrorMessage'])) { 
+                $message = $_GET['fileErrorMessage'];
+                echo "<div style='color: red;'>$message</div><br/>"; 
+                }
+                ?>
                 </div>
                 <!--Vertical Divider-->
                 <div class="vr mx-3"></div>

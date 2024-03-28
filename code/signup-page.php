@@ -60,7 +60,7 @@ session_start();
     <main>
       <h2 class="text-center mb-4" id="create-account">Create a Parrot Pricing Account</h2>
       <div id="login" class="d-flex justify-content-center">
-        <form method="post" action="php/registerUser.php" id="mainForm" class="w-25">
+        <form method="post" action="php/registerUser.php" enctype="multipart/form-data" id="mainForm" class="w-25">
           <?php 
           // displays error message from registerUser.php if account has already been registered with inputted email 
             if(isset($_GET['errorMessage'])) { 
@@ -97,6 +97,7 @@ session_start();
             <input type="checkbox" class="mx-1 my-3" onclick="showPassword()">Show Password
           </div>
           <div class="mb-3">
+            <label for="fileToUpload" style="margin-bottom:0.5em;">Upload Profile Photo:</label>
             <input type="file" name="fileupload"/>
           </div>
           <button type="submit" id="signUpButton" class="btn btn-primary">Sign up</button>
