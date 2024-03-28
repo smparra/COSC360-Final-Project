@@ -8,7 +8,7 @@
   }
 
   $firstName = $_SESSION["fname"];
-  $productID = 0;
+  $productID = $_GET['ProductID'];
   $comment = $_POST['comment'];
 
   // add comments

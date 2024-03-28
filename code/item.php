@@ -56,9 +56,9 @@ else{
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!--Search Form-->
-                        <form class="d-flex ms-auto" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button id="search-button" class="btn btn-outline-success" type="submit">Search</button>
+                        <form class="d-flex ms-auto" role="search" method="get" action="search.php">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                         <!--Navbar Items (Login, Signup, Regions)-->
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -99,20 +99,6 @@ else{
                         <h3>Best Price: <?php echo $productDetails['Price']?></h3>
                     </div>
                 </div>
-                <div id="price-tracker" class="my-4 d-flex justify-content-center">
-                    <div class="w-50">
-                        <form>
-                            <h5>Create a price tracker</h5>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">$</span>
-                                </div>
-                                <input type="text" class="form-control">
-                                <button class="btn btn-outline-secondary" type="button" id="button-track">Track</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
                 <div class="my-4 d-flex justify-content-center">
                     <div class="w-50">
                         <h5>Product Details</h5>
@@ -125,18 +111,6 @@ else{
                               <tr>
                                 <th>Category</th>
                                 <td><?php echo $productDetails['Category']?></td>
-                              </tr>
-                              <tr>
-                                <th>Manufacturer</th>
-                                <td>N/A</td>
-                              </tr>
-                              <tr>
-                                <th>Model</th>
-                                <td>N/A</td>
-                              </tr>
-                              <tr>
-                                <th>Locale</th>
-                                <td>N/A</td>
                               </tr>
                               <tr>
                                 <th>List price</th>
@@ -153,14 +127,6 @@ else{
                               <tr>
                                 <th>SKU</th>
                                 <td><?php echo $productDetails['ProductID']?></td>
-                              </tr>
-                              <tr>
-                                <th>Last update scan</th>
-                                <td>N/A</td>
-                              </tr>
-                              <tr>
-                                <th>Last tracked</th>
-                                <td>N/A</td>
                               </tr>
                             </tbody>
                           </table>

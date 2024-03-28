@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("php/configure.php");
-include("php/scrollableCards.php");
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 if (mysqli_connect_errno()) {
   die("Connection failed: " . mysqli_connect_error());  
@@ -88,28 +87,30 @@ if (mysqli_connect_errno()) {
             </nav>
         </header>
         <main>
-            <h1 class="text-center mt-4">Parrot Pricing</h1>
-            <!--Scrollable Cards (Popular Items)-->
-            <div class="popular-items mx-5 mt-5">
-                <h4>Popular Items</h4>
-                <p>Browse our Popular Items to see what items that have become staples in the Parrot Pricing community</p>
-            </div>
-            <?php scrollableCards($conn,'popular', NULL);?>
-            <!--Scrollable Cards (Top Price Drop Items)-->
-            <div class="price-drop-items mx-5 mt-5">
-                <h4>Top Price Drop Items</h4>
-                <p>Check out the Steepest Price Dropped items to uncover unbeatable deals on must-have items!</p>
-            </div>
-            <?php scrollableCards($conn, 'sale', NULL);?>
-            <!--Scrollable Cards (Health & Beauty Items)-->
-            <div class="price-drop-items mx-5 mt-5">
-                <h4>Health & Beauty</h4>
-                <p>Explore our Health and Beauty Collection to discover essential products that will elevate your self-care routine!</p>
-            </div>
-            <?php scrollableCards($conn, NULL, 'beauty');?>
+            <?php
+            if(isset($_GET['search'])){
+                $searchProduct = $_GET['search'];
+                $sql = "SELECT * FROM Products WHERE Name LIKE '%$searchProduct%'";
+                $result = mysqli_query($conn, $sql);
+                if(mysqli_num_rows($result)>0){
+                    while($row = $result->fetch_assoc()){ 
+                        $name = $row["Name"];
+                        $image = $row["Image"];
+                        $price = $row["Price"];
+                        $category = $row["Category"];
+                        $productID = $row["ProductID"];
+                        echo '<p><img class="mx-4 my-4" src="php/image.php?id='.$productID.'" style="width: 10rem;height: 10rem" alt=""> <a href="item.php?ProductID='.$productID.'">'.$name.'</a> : ' .$price. '<hr></p>';
+                    }
+                }
+                else{
+                    echo '<h3 class="mx-4 my-4" style="color:red";> No items found <hr></h3>';
+                }
+                mysqli_free_result($result);
+            }
+            ?>
         </main>
         <footer>
-            <p id="footer-home" class="d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+            <p id="footer-login" class="d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
