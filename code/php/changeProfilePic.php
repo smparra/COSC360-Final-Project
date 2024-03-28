@@ -9,13 +9,13 @@
     die("Connection failed: " . mysqli_connect_error());  
   }
   //image upload
-  $maxBlobSize = 65000; 
+  $maxFileSize = 2000000; 
   if($_FILES['fileupload']["error"] != UPLOAD_ERR_OK) {
     $fileErrorMessage = "No Image Uploaded";
     header("Location: ../account-page.php?fileErrorMessage=" . urlencode($fileErrorMessage));
     exit();
   }else{
-    if ($_FILES['fileupload']['size'] > $maxBlobSize) {
+    if ($_FILES['fileupload']['size'] > $maxFileSize) {
       $fileErrorMessage = "Image File Too Large";
       header("Location: ../account-page.php?fileErrorMessage=" . urlencode($fileErrorMessage));
       exit();

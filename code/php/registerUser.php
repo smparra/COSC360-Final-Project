@@ -18,9 +18,9 @@
   $pass = $_POST["inputPassword"];
 
   //image upload
-  $maxBlobSize = 65000; 
+  $maxFileSize = 2000000; 
   if ($_FILES['fileupload']['error'] == UPLOAD_ERR_OK) {
-    if ($_FILES['fileupload']['size'] > $maxBlobSize) {
+    if ($_FILES['fileupload']['size'] > $maxFileSize) {
       $errorMessage = "Image File Too Large";
       header("Location: ../signup-page.php?errorMessage=" . urlencode($errorMessage));
       exit();
