@@ -39,8 +39,8 @@ session_start();
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <!--Search Form-->
-                        <form class="d-flex ms-auto" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <form class="d-flex ms-auto" role="search" method="get" action="search.php">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
                         </form>
                         <!--Navbar Items (Login, Signup, Regions)-->
