@@ -168,6 +168,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="my-4 d-flex justify-content-center">
                     <div class="w-50">';
                     viewComments($conn,$productID);
+                }else{
+                    echo "<h5 style = 'text-align:center'>Login to see product details!</h5>";
                 }
                 ?>
                     </div>
