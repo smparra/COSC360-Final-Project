@@ -87,27 +87,29 @@ if (mysqli_connect_errno()) {
             </nav>
         </header>
         <main>
-            <?php
-            if(isset($_GET['search'])){
-                $searchProduct = $_GET['search'];
-                $sql = "SELECT * FROM Products WHERE Name LIKE '%$searchProduct%'";
-                $result = mysqli_query($conn, $sql);
-                if(mysqli_num_rows($result)>0){
-                    while($row = $result->fetch_assoc()){ 
-                        $name = $row["Name"];
-                        $image = $row["Image"];
-                        $price = $row["Price"];
-                        $category = $row["Category"];
-                        $productID = $row["ProductID"];
-                        echo '<p><img class="mx-4 my-4" src="php/image.php?id='.$productID.'" style="width: 10rem;height: 10rem" alt=""> <a href="item.php?ProductID='.$productID.'">'.$name.'</a> : ' .$price. '<hr></p>';
+            <div style="margin-bottom:60vh">
+                <?php
+                if(isset($_GET['search'])){
+                    $searchProduct = $_GET['search'];
+                    $sql = "SELECT * FROM Products WHERE Name LIKE '%$searchProduct%'";
+                    $result = mysqli_query($conn, $sql);
+                    if(mysqli_num_rows($result)>0){
+                        while($row = $result->fetch_assoc()){ 
+                            $name = $row["Name"];
+                            $image = $row["Image"];
+                            $price = $row["Price"];
+                            $category = $row["Category"];
+                            $productID = $row["ProductID"];
+                            echo '<p><img class="mx-4 my-4" src="php/image.php?id='.$productID.'" style="width: 10rem;height: 10rem" alt=""> <a href="item.php?ProductID='.$productID.'">'.$name.'</a> : ' .$price. '<hr></p>';
+                        }
                     }
+                    else{
+                        echo '<h3 class="mx-4 my-4" style="color:red";> No items found <hr></h3>';
+                    }
+                    mysqli_free_result($result);
                 }
-                else{
-                    echo '<h3 class="mx-4 my-4" style="color:red";> No items found <hr></h3>';
-                }
-                mysqli_free_result($result);
-            }
-            ?>
+                ?>
+            </div>
         </main>
         <footer>
             <p id="footer-home" class="d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
