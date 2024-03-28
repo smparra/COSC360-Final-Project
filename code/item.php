@@ -118,51 +118,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <section>
                 <h2 class="text-center my-4"><?php echo $productDetails['Name']?></h2>
                 <div id="item-details" class="d-flex justify-content-center">
-                    <img src="<?php echo 'php/image.php?id=' . $productDetails['ProductID']; ?>" style="width: 35rem;" alt="">
+                    <img src="<?php echo 'php/image.php?id=' . $productDetails['ProductID']; ?>" style="width: 20%;" alt="">
                 </div>
                 <div id="item-details" class="d-flex justify-content-center">
                     <div class="w-50 text-success">
-                        <h3>Best Price: <?php echo $productDetails['Price']?></h3>
+                        <br><h3 style = "text-align:center">Best Price: <?php echo $productDetails['Price']?></h3>
                     </div>
                 </div>
-                <div class="my-4 d-flex justify-content-center">
+                <?php
+                if ($_SESSION["permissions"] === "User" || $_SESSION["permissions"] === "Admin"){
+                    echo'
+                    <div class="my-4 d-flex justify-content-center">
                     <div class="w-50">
                         <h5>Product Details</h5>
                         <table class="table table-striped">
                             <tbody>
                               <tr>
                                 <th>Product group</th>
-                                <td><?php echo $productDetails['Class']?></td>
+                                <td>'.$productDetails["Class"].'</td>
                               </tr>
                               <tr>
                                 <th>Category</th>
-                                <td><?php echo $productDetails['Category']?></td>
+                                <td>'.$productDetails["Category"].'</td>
                               </tr>
                               <tr>
                                 <th>List price</th>
-                                <td><?php echo $productDetails['Price']?></td>
+                                <td>'.$productDetails["Price"].'</td>
                               </tr>
                               <tr>
-                                <th>EAN</th>
-                                <td><?php echo $productDetails['ProductID']?></td>
-                              </tr>
-                              <tr>
-                                <th>UPC</th>
-                                <td><?php echo $productDetails['ProductID']?></td>
-                              </tr>
-                              <tr>
-                                <th>SKU</th>
-                                <td><?php echo $productDetails['ProductID']?></td>
+                                <th>Product ID</th>
+                                <td>.'.$productDetails["ProductID"].'</td>
                               </tr>
                             </tbody>
                           </table>
                     </div>
-                </div>
-                <div class="my-4 d-flex justify-content-center">
+                    </div>
+                    <div class="my-4 d-flex justify-content-center">
                     <div class="w-50">
                         <h5>Comments</h5>
                         <h6><hr>Leave Feedback</h6>
-                        <form method="post" action="<?php echo $_SERVER['PHP_SELF']?>?ProductID=<?php echo $productID ?>">
+                        <form method="post" action="'.$_SERVER['PHP_SELF'].'?ProductID='.$productID.'">
                             <div class="mb-3">
                                 <input type="text" class="w-25 form-control" id="addComment" name="comment">
                             </div>
@@ -171,8 +166,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
                 <div class="my-4 d-flex justify-content-center">
-                    <div class="w-50">
-                    <?php viewComments($conn,$productID)?>
+                    <div class="w-50">';
+                    viewComments($conn,$productID);
+                }
+                ?>
                     </div>
                 </div>
             </section>
