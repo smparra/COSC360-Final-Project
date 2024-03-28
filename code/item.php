@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </nav>
         </header>
-        <main>
+        <main style="min-height:85vh">
             <section>
                 <h2 class="text-center my-4"><?php echo $productDetails['Name']?></h2>
                 <div id="item-details" class="d-flex justify-content-center">
