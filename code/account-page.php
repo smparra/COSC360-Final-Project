@@ -83,15 +83,15 @@ session_start();
             </nav>
         </header>
         <main>
-            <h2 class="mb-3" style="margin-left: 44%; margin-top:1em;">Change Account Details</h2>
+            <h2 class="mb-3 d-flex justify-content-center" style="margin-top:1em;">Change Account Details</h2>
             <?php 
             // displays success message if details are changed successfully
             if(isset($_GET['successMessage'])) { 
             $successMessage = $_GET['successMessage'];
-            echo "<div style='color: green; margin-left: 44%'>$successMessage</div><br/>"; 
+            echo "<div style='color: green;' class='d-flex justify-content-center'>$successMessage</div><br/>"; 
             } 
             else{
-                echo "<div></div><br/>";
+                echo "<br/><br/>";
             }
           ?>
             <div id="settings" class="d-flex justify-content-center">
