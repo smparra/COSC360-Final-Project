@@ -1,22 +1,37 @@
 <?php
 include("php/getProductDetails.php");
 include("php/viewComments.php");
+
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 if (mysqli_connect_errno()) {
-  die("Connection failed: " . mysqli_connect_error());  
+    die("Connection failed: " . mysqli_connect_error());  
 }
-?>
 
-<?php
 if(isset($_GET['ProductID'])){
     $productID = $_GET['ProductID'];
     $productDetails = getProductDetails($conn,$productID);
-}
-else{
+} else {
     echo "Product ID not found in URL";
     exit;
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(isset($_POST['comment']) && !empty($_POST['comment'])) {
+        $firstName = $_SESSION["fname"];
+        $comment = $_POST['comment'];
+        
+        $sql = "INSERT INTO Feedback (firstName, ProductID, Comment) VALUES (?,?,?);";
+        $statement = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($statement, "sis", $firstName, $productID, $comment);
+        mysqli_stmt_execute($statement);
+        header("Location: {$_SERVER['PHP_SELF']}?ProductID=$productID");
+        exit();
+    } else {
+        $errorMessage = "No comment added";
+    }
+}
 ?>
+
 
 <!doctype html>
 
@@ -44,7 +59,7 @@ else{
     <body>
         <header>
             <!--Navbar Start-->
-            <nav class="navbar navbar-expand-lg">
+            <nav class="navbar navbar-expand-lg" style="background-color:#D4E0B1">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="home-page.php">
                         <img src="images/parrot.png" alt="Logo" height="30" width="30" class="d-inline-block align-text-top">
@@ -62,27 +77,38 @@ else{
                         </form>
                         <!--Navbar Items (Login, Signup, Regions)-->
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Region
-                                </a>
-                                <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Canada</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">United States</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Bermuda</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="signup.html">Sign Up</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="login.html">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="account.html">Account</a>
-                            </li>
+                            <?php 
+                                //if logged in, show dropdown, else login / sign up
+                                if (isset($_SESSION['email'])){
+                                    echo "
+                                    <li class='nav-item'>
+                                        <span class='nav-link'> Hello, ".$_SESSION['fname']."! </span>
+                                    </li>
+                                    <li class='nav-item dropdown'>
+                                        <a class='nav-link dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                            Your Account
+                                        </a>
+                                    <ul class='dropdown-menu dropdown-menu-end'>
+                                        <li><a class='dropdown-item' href='account-page.php'>Account Details</a></li>";
+                                        if ($_SESSION['permissions'] === "Admin" ){
+                                            echo "
+                                            <li><hr class='dropdown-divider'></li>
+                                            <li><a class='dropdown-item' href='admin-page.php'>Admin Settings</a></li>";
+                                        }
+                                        echo "
+                                        <li><hr class='dropdown-divider'></li>
+                                        <li><a class='dropdown-item' href='php/logout.php'>Logout</a></li>
+                                    </ul>";
+                                } else{
+                                    echo 
+                                    "<li class='nav-item'>
+                                        <a class='nav-link' href='login-page.php'>Login</a>
+                                    </li>
+                                    <li class='nav-item'>
+                                        <a class='nav-link' href='signup-page.php'>Sign Up</a>
+                                    </li>";
+                                }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -136,7 +162,7 @@ else{
                     <div class="w-50">
                         <h5>Comments</h5>
                         <h6><hr>Leave Feedback</h6>
-                        <form method="post" action="php/addComment.php" id="addComment">
+                        <form method="post" action="<?php echo $_SERVER['PHP_SELF']?>?ProductID=<?php echo $productID ?>">
                             <div class="mb-3">
                                 <input type="text" class="w-25 form-control" id="addComment" name="comment">
                             </div>
@@ -152,7 +178,7 @@ else{
             </section>
         </main>
         <footer>
-            <p id="footer-home" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+            <p id="footer-home" class="d-flex justify-content-center pt-2" style="margin-bottom: 0; background-color:#D4E0B1">COSC 360 Project: Claire Costello & Segundo Parra</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
