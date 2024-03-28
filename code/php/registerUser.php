@@ -16,6 +16,20 @@
   $lastName = $_POST["inputLastName"];
   $email = $_POST["inputEmail"];
   $pass = $_POST["inputPassword"];
+
+  //image upload
+  $maxBlobSize = 65000; 
+  if(isset($_FILES["fileupload"])) {
+    if ($_FILES['fileupload']['size'] > $maxBlobSize) {
+      $errorMessage = "Image File Too Large";
+      header("Location: ../signup-page.php?errorMessage=" . urlencode($errorMessage));
+      exit();
+    }else{
+      $image = file_get_contents($_FILES["fileupload"]["tmp_name"]);
+    }
+  }else{
+    $image = file_get_contents("../images/profile-photo.jpeg");
+  }
   $hashPass = md5($pass);
   $permissions = "User"; // new users have "user" permissions by default
   $isActive = "True"; // user activated when account is created
@@ -34,9 +48,9 @@
     header("Location: ../signup-page.php?errorMessage=" . urlencode($errorMessage));
     exit();
   }else{
-    $sql = "INSERT INTO users VALUES (?,?,?,?,?,?);";
+    $sql = "INSERT INTO users VALUES (?,?,?,?,?,?,?);";
     if($statement = mysqli_prepare($conn, $sql)){
-      mysqli_stmt_bind_param($statement, "ssssss", $firstName, $lastName, $email, $hashPass, $permissions, $isActive);
+      mysqli_stmt_bind_param($statement, "sssssss", $firstName, $lastName, $email, $hashPass, $permissions, $isActive, $image);
       mysqli_stmt_execute($statement);
       mysqli_close($conn);
       $_SESSION["email"] = $email;
