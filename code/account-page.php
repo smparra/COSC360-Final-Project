@@ -83,7 +83,7 @@ session_start();
             </nav>
         </header>
         <main>
-            <h2 class="mb-3 d-flex justify-content-center" style="margin-top:1em;">Change Account Details</h2>
+            <h2 class="mb-3 d-flex justify-content-center" style="margin-top:0.7em;">Change Account Details</h2>
             <?php 
             // displays success message if details are changed successfully
             if(isset($_GET['successMessage'])) { 
@@ -91,7 +91,7 @@ session_start();
             echo "<div style='color: green;' class='d-flex justify-content-center'>$successMessage</div><br/>"; 
             } 
             else{
-                echo "<br/><br/>";
+                echo "<br><br>";
             }
           ?>
             <div id="settings" class="d-flex justify-content-center">
@@ -144,13 +144,16 @@ session_start();
                         <div class="mb-3">
                             <label for="inputEmail" class="form-label">New Email address</label>
                             <input type="email" class="form-control" name="inputEmail">
+                            <span id='email-error' style='color: red; font-size: small;'>
                             <?php 
                                 // displays error message if account has already been registered with inputted email 
                                 if(isset($_GET['errorMessage'])) { 
                                     $errorMessage = $_GET['errorMessage'];
-                                    echo "<span id='email-error' style='color: red; font-size: small;'>$errorMessage</span><br/>"; 
-                                } 
-                            ?>
+                                    echo $errorMessage; }
+                            ?>       
+                            </span>
+                                
+                            
                         </div>
                         <button type="submit" id="updateButton" class="btn btn-primary">Update Email</button>
                     </form>
@@ -171,7 +174,7 @@ session_start();
             </div>
         </main>
         <footer>
-            <p id="footer-login" class="py-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
+            <p id="footer-home" class="d-flex justify-content-center pt-2" style="margin-bottom: 0;">COSC 360 Project: Claire Costello & Segundo Parra</p>
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
         <script
