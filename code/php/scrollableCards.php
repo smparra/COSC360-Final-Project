@@ -20,7 +20,6 @@
                             .$name.
                             '</a></h6>
                             <h5 class="card-text">Best Price: '.$price.'</h5>
-                            <a href="https://www.amazon.ca/Apple-Smartwatch-Starlight-Aluminium-Water-Resistant/dp/B0CHWYJLQQ/ref=sr_1_5?crid=3HGZETNTCUFE4&dib=eyJ2IjoiMSJ9.pDqIUGMIdK1tgXXVTPeyw7rqyMfSDAWvKiogGIzCzForKVuPcMyCoEQyg8QEarN4qWwYXnb1cnJ19q45ZRBRzwU3bCXUUZtPcV_3aP_mIJdVe5uv_R1yQ7ifEF1rtoyZi0EToi86o9xPdU9jLMakx3AqkBcYgKpBQWML8yVesk7ZXKA7aTbetzhSBpFVpZ3NFM9PLv91pIbJagyCDhmE67QvnXun8uIThmDKVfMjD20XXVowrtsDwQlCOyTMygolD2RZFr-b1tIPnckeSw9Mbezafh8UQnYl9DMCzQZLqUw.arAbogRvcD0Qc_MZAIPlrr-XNjX5uRWIvLQqksoztqs&dib_tag=se&keywords=apple+watch&qid=1710459278&sprefix=apple+wat%2Caps%2C354&sr=8-5" class="btn btn-primary yellow-buttons">View on Amazon</a>
                         </div>
                     </div>
                 ';
