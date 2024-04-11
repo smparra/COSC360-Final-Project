@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include("php/getProductDetails.php");
 
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
@@ -9,6 +11,7 @@ if (mysqli_connect_errno()) {
 if(isset($_GET['ProductID'])){
     $productID = $_GET['ProductID'];
     $productDetails = getProductDetails($conn,$productID);
+    $_SESSION['productID'] = $_GET['ProductID'];
 } else {
     echo "Product ID not found in URL";
     exit;
@@ -177,8 +180,11 @@ if(isset($_GET['ProductID'])){
         ></script>
         <script>
             $(document).ready(function(){
+                const urlString = window.location.search;
+                const urlStringValues = new URLSearchParams(urlString);
+                const getProductID = urlStringValues.get('ProductID')
                 function viewCommentsStart(){
-                    var productID = 1010;
+                    var productID = getProductID;
                     $.ajax({
                         url: "php/viewComments.php",
                         type: 'GET',

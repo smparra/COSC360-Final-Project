@@ -8,13 +8,8 @@
   }
 
   $firstName = $_SESSION["fname"];
-  //$productID = $_GET['ProductID'];
-  $productID = 1010;
+  $productID = $_SESSION['productID'];
   $comment = $_POST['comment'];
-
-  echo "$firstName";
-  echo "$productID";
-  echo "$comment";
 
   // add comments
   if (!empty($_POST["comment"])){
