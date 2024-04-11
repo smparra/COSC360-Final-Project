@@ -1,6 +1,5 @@
 <?php
 include("php/getProductDetails.php");
-include("php/viewComments.php");
 
 $conn =  mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 if (mysqli_connect_errno()) {
@@ -13,22 +12,6 @@ if(isset($_GET['ProductID'])){
 } else {
     echo "Product ID not found in URL";
     exit;
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if(isset($_POST['comment']) && !empty($_POST['comment'])) {
-        $firstName = $_SESSION["fname"];
-        $comment = $_POST['comment'];
-        
-        $sql = "INSERT INTO Feedback (firstName, ProductID, Comment) VALUES (?,?,?);";
-        $statement = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($statement, "sis", $firstName, $productID, $comment);
-        mysqli_stmt_execute($statement);
-        header("Location: {$_SERVER['PHP_SELF']}?ProductID=$productID");
-        exit();
-    } else {
-        $errorMessage = "No comment added";
-    }
 }
 ?>
 
@@ -54,6 +37,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         />
         <!--Custom CSS-->
         <link rel="stylesheet" href="page-design.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     </head>
 
     <body>
@@ -147,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                               </tr>
                               <tr>
                                 <th>Product ID</th>
-                                <td>.'.$productDetails["ProductID"].'</td>
+                                <td>'.$productDetails["ProductID"].'</td>
                               </tr>
                             </tbody>
                           </table>
@@ -157,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="w-50">
                         <h5>Comments</h5>
                         <h6><hr>Leave Feedback</h6>
-                        <form method="post" action="'.$_SERVER['PHP_SELF'].'?ProductID='.$productID.'">
+                        <form method="post" id="commentForm">
                             <div class="mb-3">
                                 <input type="text" class="w-25 form-control" id="addComment" name="comment">
                             </div>
@@ -166,8 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
                 <div class="my-4 d-flex justify-content-center">
-                    <div class="w-50">';
-                    viewComments($conn,$productID);
+                    <div class="w-50" id="commentSection">';
                 }else{
                     echo "<h5 style = 'text-align:center'>Login to see product details!</h5>";
                 }
@@ -191,9 +175,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <script>
+            $(document).ready(function(){
+                function viewCommentsStart(){
+                    var productID = 1010;
+                    $.ajax({
+                        url: "php/viewComments.php",
+                        type: 'GET',
+                        data: { 'ProductID': productID },
+                        success: function(data){
+                            $('#commentSection').html(data);
+                        }
+                    })
+                }
 
-        <!--Chart.js Script-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        <script src="scripts/priceTracker.js"></script>
+                viewCommentsStart();
+                
+                $("#commentForm").on('submit',function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        url: "php/addComment.php",
+                        data: $("#commentForm").serialize(),
+                        async: true,
+                        type: 'POST',
+                        success:function(data){
+                            alert("Comment Added!");
+                            viewCommentsStart();
+                        }
+                    })
+                })
+            });
+        </script>
     </body>
 </html>

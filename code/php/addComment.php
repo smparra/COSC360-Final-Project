@@ -8,8 +8,13 @@
   }
 
   $firstName = $_SESSION["fname"];
-  $productID = $_GET['ProductID'];
+  //$productID = $_GET['ProductID'];
+  $productID = 1010;
   $comment = $_POST['comment'];
+
+  echo "$firstName";
+  echo "$productID";
+  echo "$comment";
 
   // add comments
   if (!empty($_POST["comment"])){
@@ -18,15 +23,9 @@
         mysqli_stmt_bind_param($statement, "sis", $firstName, $productID, $comment);
         mysqli_stmt_execute($statement);
         mysqli_close($conn);
-        $successMessage = "Comment Added!";
-        viewComments($conn,$productID);
-        header("Location: ../item.php?successMessage=" . urlencode($successMessage));
-        exit();
     }
   }
   else{
     $errorMessage = "No comment added";
-    header("Location: ../item.php?errorMessage=" . urlencode($errorMessage));
-    exit();
   }
 ?>
